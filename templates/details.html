@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="row">
+                {% if photo.orientation == 'landscape' %}
+                <div class="eightcol viewimg">
+                        <img src="{{ photo.get_landscape_url }}" alt="{{ photo.title }}"/></a>
+                {% else %}
+                <div class="fourcol viewimg det-potrait">
+                        <img src="{{ photo.get_600_url }}" alt="{{ photo.title }}"/></a>
+                {% endif %}
+                </div>
+                <div class="fourcol last tenpad details">
+                                        <table>
+                                                <tr><td><b>Taken: </b></td><td>
+                                                {% if photo.exif_date_taken != "None"%}
+                                                {{ photo.exif_date_taken }}
+                                                {% else %}
+                                                 Not Available
+                                                {% endif %}</td></tr>
+                                        
+                                                <tr><td><b>Focal Length: </b></td><td>
+                                                {% if photo.exif_focal != "None" %}
+                                                {{ photo.exif_focal }}mm
+                                                {% else %}
+                                                Not Available
+                                                {% endif %}</td></tr>
+
+                                                <tr><td><b>Shutter Speed:</b></td><td>
+                                                {% if photo.exif_shutter != "None" %}
+                                                {{ photo.exif_shutter }}
+                                                {% else %}
+                                                Not Available
+                                                {% endif %}</td></tr>
+
+                                                <tr><td><b>ISO: </b></td><td>
+                                                {% if photo.exif_iso != "None" %}
+                                                {{ photo.exif_iso }}
+                                                {% else %}
+                                                Not Available
+                                                {% endif %}</td></tr>
+
+                                                <tr><td><b>Aperture:</b></td><td>
+                                                {% if photo.exif_aperture != "None" %}
+                                                f/{{ photo.exif_aperture }}
+                                                {% else %}
+                                                Not Available
+                                                {% endif %}</td></tr>
+
+                                                <tr><td><b>Tagged:</b></td><td>
+                                                {% if photo.tags != "None" %}
+                                                {{ photo.tags }}
+                                                {% else %}
+                                                None
+                                                {% endif %}</td></tr>
+					</table>
+
+                                        <div class="tenpad right">
+                                                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
+                                        </div>
+                                </div>
+        </div>
+        <div class="row tenpad">
+                <div class="tencol viewbar last">
+                        {{ photo.caption|linebreaksbr }}
+                </div>
+        </div>
+</div>
+<div class="tenpad filmstrip">
+        <div class="row">
+                <div class="onecol left viewarrow">
+                {% if prevphoto %}
+                        <a href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
+                {% endif %}
+                </div>
+                {% for photo in plist %}
+                <div class="twocol plist">
+                        <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
+                </div>
+                {% endfor %}
+                <div class="onecol right last viewarrow">
+                        {% if nextphoto %}
+                        <a href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
+                        {% endif %}
+                </div>
+        </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block header %}{% endblock %}
+{% block content %}
+<!-- Photos!  -->
+<div class="wrapper">
+	<div class="row">
+		{% for photo in photos.object_list %}
+		<div class="jthreecol post">
+			<a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_home_url }}" alt="{{ photo.title }}"/></a> 
+		{% if user.is_authenticated %}{{ photo.id }} | {{ photo.date_posted }}{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	<div class="row homenav">
+		<div class="sixcol left">
+                        {% if photos.has_previous %}
+                        <a href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
+                        {% endif %}
+                </div>
+		<div class="sixcol right last">
+			{% if photos.has_next %}
+			<a href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
+			{% endif %}
+		</div>
+	</div>	
+	<div class="row">
+		<div class="twocol tag">
+		<h2><a href="/">All</a></h2>
+		</div>
+		<div class="twocol tag">
+                <h2><a href="/category/featured">Featured</a></h2>
+                </div>
+                <div class="twocol tag">
+		<h2><a href="/category/landscapes">Landscapes</a> </h2>
+		</div>
+		<div class="twocol tag">
+		<h2><a href="/category/nature">Nature</a> </h2>
+		</div>
+		<div class="twocol tag">
+		<h2><a href="/category/misc">Misc.</a> </h2>
+		</div>
+		<div class="twocol last tag">
+		<h2><a href="/about">About</a> </h2>
+		</div>
+
+	</div>
+
+</div>
+{% endblock %}
+

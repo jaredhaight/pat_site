@@ -1,0 +1,7 @@
+## Compiled Python ##
+*.pyc
+
+## Backups ##
+*.bak
+*.save
+*.20*
