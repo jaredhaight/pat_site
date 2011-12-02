@@ -16,8 +16,7 @@ class PhotoSize(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=10, choices=SIZE_CHOICES)
     height = models.IntegerField()
-    width = models.IntegerField()
-    
+    width = models.IntegerField()	    
     def __unicode__(self):
         return self.name
 
@@ -67,7 +66,7 @@ class Photo(models.Model):
             elif size.type == 'display':
                 t_img.thumbnail((width,height), Image.ANTIALIAS)
                 t_img.save(fname, 'JPEG', quality=90)
-  
+ 
     def get_orientation(self):
         width = self.original_image.width
         height = self.original_image.height
