@@ -16,18 +16,22 @@
 
         <!-- Your styles -->
         <link rel="stylesheet" href="/css/styles.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/css/tipsy.css" type="text/css" media="screen" />
 
         <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
         <script type="text/javascript" src="/js/css3-mediaqueries.js"></script>
-
         <!--Delete embedded styles, just for example.-->
-
-        <style type="text/css">
+	
+	<script src="/static/js/jquery.js"></script>
+	<script src="/static/js/jquery.tipsy.js"></script>
+        
+	<style type="text/css">
 
         </style>
 
 </head>
 <body>
+{% block javascript %}{% endblock %}
 <div class="container">
 {% block header %}
 	<div class="row">
@@ -40,6 +44,5 @@
 {% endblock %}
        {% block content %}{% endblock %}
 
-<script src="/static/js/jquery.js"></script>
 </body>
 </html>

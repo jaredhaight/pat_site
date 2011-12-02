@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
         <div class="row">
                 {% if photo.orientation == 'landscape' %}
@@ -61,30 +60,11 @@
                                 </div>
         </div>
         <div class="row tenpad">
-                <div class="tencol viewbar last">
+                <div class="viewbar">
                         {{ photo.caption|linebreaksbr }}
                 </div>
         </div>
 </div>
-<div class="tenpad filmstrip">
-        <div class="row">
-                <div class="onecol left viewarrow">
-                {% if prevphoto %}
-                        <a href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
-                {% endif %}
-                </div>
-                {% for photo in plist %}
-                <div class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
-                </div>
-                {% endfor %}
-                <div class="onecol right last viewarrow">
-                        {% if nextphoto %}
-                        <a href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
-                        {% endif %}
-                </div>
-        </div>
-</div>
-
+{% include 'filmstrip.html' %}
 {% endblock %}
 

@@ -1,5 +1,12 @@
 {% extends "base.html" %}
-
+{% block javascript %}
+<script type='text/javascript'>
+        $(document).ready(function(){
+        $('a#PhotoDetails').tipsy({gravity: 's'});
+	$('a#ViewLarger').tipsy({gravity: 's'});
+        });
+</script>
+{% endblock %}
 {% block header %}
         <div class="row header">
                 <div class="sixcol headertitle left">
@@ -12,49 +19,27 @@
 		{% if photo.orientation == 'landscape' %}
 		<div class="twelevecol viewimg landscape last">
 			<div class="displayicons fright">
-				<a href="/photo/{{ photo.title_slug }}/details"><img src="/static/images/details-3.png" alt="View photo details"/></a>
-	                        <a href="/photo/{{ photo.title_slug }}/full"><img src="/static/images/zoom-3.png" alt="View a larger version of the photo"/></a>
+				<a id="PhotoDetails" title="View Photo Details" href="/photo/{{ photo.title_slug }}/details"><img src="/static/images/details-3.png"/></a>
+	                        <a id="ViewLarger" title="View a Larger Version of this Photo" href="/photo/{{ photo.title_slug }}/full"><img src="/static/images/zoom-3.png"/></a>
 			</div>
 		        <img src="{{ photo.get_landscape_url }}" alt="{{ photo.name }}"/>
 		{% else %}
                 <div class="twelevecol viewimg potrait last">
                         <div class="displayicons fright">
-                                <a href="/photo/{{ photo.title_slug }}/details"><img src="/static/images/details-3.png"></a>
-                                <a href="/photo/{{ photo.title_slug }}/full"><img src="/static/images/zoom-3.png"></a>
-			</div>
+                                <a id="PhotoDetails" title="View Photo Details" href="/photo/{{ photo.title_slug }}/details"><img src="/static/images/details-3.png"/></a>
+                                <a id="ViewLarger" title="View a Larger Version of this Photo" href="/photo/{{ photo.title_slug }}/full"><img src="/static/images/zoom-3.png"/></a>
+                        </div>
                         <img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></a>
 		{% endif %}
 		</div>
 	</div>
 	<div class="row tenpad">
-                <div class="twelevecol viewbar last">
+                <div class="viewbar">
                         {{ photo.caption|linebreaksbr }}
 			{% if user.is_authenticated %}{{ photo.id }}{% endif %}
                 </div>
 	</div>
 </div>
-<div class="tenpad filmstrip">
-	<div class="row">
-        	<div class="onecol left viewarrow">
-                	{% if prevphoto %}
-                        <a href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
-			{% if user.is_authenticated %}{{ prevphoto.id }}{% endif %}
-                        {% endif %}
-                </div>
-                {% for photo in plist %}
-                <div class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
-			{% if user.is_authenticated %} {{ photo.id }} {% endif %}
-                </div>
-                {% endfor %}
-                <div class="onecol right last viewarrow">
-                        {% if nextphoto %}
-                        <a href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
-			{% if user.is_authenticated %}{{ nextphoto.id }}{% endif %}
-                        {% endif %}
-                </div>
-        </div>
-</div>
-
+{% include 'filmstrip.html' %}
 {% endblock %}
 

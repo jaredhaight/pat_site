@@ -65,22 +65,20 @@ def details(request, jslug):
     try: nextphoto = photo.get_previous_by_date_posted()
     except photo.DoesNotExist: nextphoto = None
 
-    next = Photo.objects.filter(id__lt=(photo.id)).order_by('-date_posted')[:4]
-    prev = Photo.objects.filter(id__gt=(photo.id)).order_by('date_posted')[:4]
+    seed = Photo.objects.filter(id__lte=(photo.id)).order_by('-date_posted')[:5]
 
-    if next.count() < 4:
-        prevlist = prev[:(4 - next.count())]
+    if Photo.objects.filter(id__gt=photo.id).count() < 2:
+        count = (4 - Photo.objects.filter(id__gt=photo.id).count())
+    elif Photo.objects.filter(id__lt=photo.id).count() <2:
+        count = seed.count()-1
     else:
-        prevlist = prev[:2]
+        count = 2
 
-    if prev.count() < 4:
-        nextlist = next[:(4 - prev.count())]
-    else:
-        nextlist = next[:2]
+    pstrip = Photo.objects.filter(id__gte=(seed[count].id))[:5]
+    plist = list(pstrip)
+    plist.reverse()
 
-    plist = [i for i in chain(prevlist, nextlist)]
-
-    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, plist=plist, caption=caption)
+    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, plist=plist, caption=caption, user=request.user)
 
     return render_to_response("details.html", d)
 

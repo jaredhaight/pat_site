@@ -5,3 +5,7 @@
 *.bak
 *.save
 *.20*
+
+##settings##
+settings.py
+files/
