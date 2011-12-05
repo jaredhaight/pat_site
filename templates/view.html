@@ -16,15 +16,16 @@
 {% endblock %}
 {% block content %}
 	<div class="row">
+		<div class="tencol">
 		{% if photo.orientation == 'landscape' %}
-		<div class="twelevecol viewimg landscape last">
+		<div class="viewimg">
 			<div class="displayicons fright">
 				<a id="PhotoDetails" title="View Photo Details" href="/photo/{{ photo.title_slug }}/details"><img src="/static/images/details-3.png"/></a>
 	                        <a id="ViewLarger" title="View a Larger Version of this Photo" href="/photo/{{ photo.title_slug }}/full"><img src="/static/images/zoom-3.png"/></a>
 			</div>
 		        <img src="{{ photo.get_landscape_url }}" alt="{{ photo.name }}"/>
 		{% else %}
-                <div class="twelevecol viewimg potrait last">
+                <div class="viewimg potrait">
                         <div class="displayicons fright">
                                 <a id="PhotoDetails" title="View Photo Details" href="/photo/{{ photo.title_slug }}/details"><img src="/static/images/details-3.png"/></a>
                                 <a id="ViewLarger" title="View a Larger Version of this Photo" href="/photo/{{ photo.title_slug }}/full"><img src="/static/images/zoom-3.png"/></a>
@@ -32,14 +33,28 @@
                         <img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></a>
 		{% endif %}
 		</div>
+		</div>
+ {% include 'filmstrip.html' %}
+
 	</div>
 	<div class="row tenpad">
-                <div class="viewbar">
+                <div class="onecol left viewarrow">
+                        {% if prevphoto %}
+                        <a href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
+                        {% if user.is_authenticated %}{{ prevphoto.id }}{% endif %}
+                        {% endif %}
+                </div>
+                <div class="tencol viewbar">
                         {{ photo.caption|linebreaksbr }}
 			{% if user.is_authenticated %}{{ photo.id }}{% endif %}
                 </div>
+                <div class="onecol right last viewarrow">
+                        {% if nextphoto %}
+                        <a href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
+                        {% if user.is_authenticated %}{{ nextphoto.id }}{% endif %}
+                        {% endif %}
+                </div>
 	</div>
 </div>
-{% include 'filmstrip.html' %}
 {% endblock %}
 

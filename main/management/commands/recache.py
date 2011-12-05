@@ -15,5 +15,6 @@ class Command(NoArgsCommand):
 
         self.stdout.write('\nRe-creating Photo Cache.\n')
         for photo in Photo.objects.all():
+            print ('Generating thumbnails for %s' % photo.name)
             photo.create_sizes()    
 
