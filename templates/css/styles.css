@@ -144,21 +144,25 @@ a:hover {
 	box-shadow: 0px 0px 3px 0 #888;
 	border-radius: 3px;
 	min-height: 150px;
-	margin: 2% 0% 2% 0%;
-	padding: 1%;
+	margin: 4% 0% 2% 0%;
+	padding: 2%;
+	float: right;
+	width: 90%;
 }
 
 .viewbarlinks{
 	padding: 5px 0;
 }
 
+.viewmargin{
+	margin-right: 0.1%;
+}
+
 .filmstrip{
+	height: 175px;
 	background: #FEF6E4;
-	box-shadow:inset 0 0 6px #413839;
-	margin: 5% 5% 0 0%;
-	float: right;
-	padding: 10px 10px 5px 10px;
-	border-radius: 3px;
+	box-shadow:inset 0 0 6px #000000;
+	margin: 2%;
 }
 
 .right{
@@ -214,12 +218,9 @@ a:hover {
 .plist{
 	color: white;
 	background: #000;
-	margin: 2% 0 8%;
+	margin: .7% 1.4% 1% 1.4%;
 	padding: .2%;
-	box-shadow: 2px 5px 15px #888;
-	border: black;
-	border-style: solid;
-	border-width: 1px;
+	box-shadow: 5px 5px 10px #888;
 }
 
 .viewlinks{
@@ -227,3 +228,12 @@ a:hover {
 }
 
 	
+.contentrow {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.sidebar {
+	width: 20%;
+	float:right;
+}

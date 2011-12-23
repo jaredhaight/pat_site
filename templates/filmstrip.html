@@ -1,12 +1,24 @@
 {% block filmstrip %}
-<div class="twocol last">
-<div class="filmstrip">
+<div class="tenpad filmstrip">
+        <div class="row">
+                <div class="onecol left viewarrow">
+                        {% if prevphoto %}
+                        <a href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
+                        {% if user.is_authenticated %}{{ prevphoto.id }}{% endif %}
+                        {% endif %}
+                </div>
                 {% for photo in plist %}
-                <div class="plist">
+                <div class="twocol plist">
                         <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
                         {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}
-</div>
+                <div class="onecol right last viewarrow">
+                        {% if nextphoto %}
+                        <a href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
+                        {% if user.is_authenticated %}{{ nextphoto.id }}{% endif %}
+                        {% endif %}
+                </div>
+        </div>
 </div>
 {% endblock %}
