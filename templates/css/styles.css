@@ -225,23 +225,3 @@ a:hover {
 	width: 20%;
 	float:right;
 }
-
-.navarrow {
-	margin-top: -10px;
-}
-
-.container {
-	position: relative;
-}
-
-#navleft {
-	padding-left: 30px;
-}
-
-#navright {
-	padding-right: 30px;
-}
-
-.navarrow {
-	padding-top: 25%;
-}
