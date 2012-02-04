@@ -3,10 +3,10 @@
 <script type='text/javascript'>
 $(document).ready(function(){
 	$("a#HomePhoto").hover(function(){
-		$("a#HomePhoto").fadeTo("slow",0.8); 
-                $(this).fadeTo("slow",1.1);
-		},function(){
-		$("a#HomePhoto").fadeTo("slow",1.0);
+                $(this).fadeTo("fast",1.0);
+		$("a#HomePhoto").not(this).stop().fadeTo("fast",0.8); 
+		},function() {
+		$("a#HomePhoto").not(this).stop().fadeTo("slow",1.0);
 	});
 });
 </script>

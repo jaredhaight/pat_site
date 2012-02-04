@@ -96,6 +96,11 @@ a:hover {
 	position: relative;
 }
 
+.fullimg {
+	width: 100%;
+	height: 100%;
+}
+
 .displayimg { 
 	position:absolute; 
 	top: 25px;
@@ -109,15 +114,6 @@ a:hover {
 	padding: .25%;
 	top: 0;
 	right: 0;
-}
-
-.potrait {
-	width: 52.71%;
-	margin: 1% 35%;
-}
-
-.det-potrait {
-	margin: 0 0 0 15%;
 }
 
 .post {
@@ -137,32 +133,12 @@ a:hover {
 
 }
 
-.viewbar{
-	background: #FFFAF0;
-	font-size: 1.3em;
-	color: #404040;
-	box-shadow: 0px 0px 3px 0 #888;
-	border-radius: 3px;
-	min-height: 150px;
-	margin: 4% 0% 2% 0%;
-	padding: 2%;
-	float: right;
-	width: 90%;
-}
-
-.viewbarlinks{
-	padding: 5px 0;
-}
-
-.viewmargin{
-	margin-right: 0.1%;
-}
-
 .filmstrip{
-	height: 175px;
 	background: #FEF6E4;
 	box-shadow:inset 0 0 6px #000000;
-	margin: 2%;
+	margin: 1% auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .right{
@@ -195,10 +171,6 @@ a:hover {
 	float: right;
 }
 
-.viewarrow{
-	padding: 7% 0 0 0;
-}
-
 .aboutbox{
 	background: #E5FFE5;
 	box-shadow: 2px 5px 3px 1px#888;
@@ -216,11 +188,10 @@ a:hover {
 }
 
 .plist{
-	color: white;
-	background: #000;
 	margin: .7% 1.4% 1% 1.4%;
-	padding: .2%;
 	box-shadow: 5px 5px 10px #888;
+	border: 1px;
+	border-style: solid;
 }
 
 .viewlinks{
@@ -228,12 +199,49 @@ a:hover {
 }
 
 	
-.contentrow {
-	width: 80%;
+.imagewrap {
 	margin: 0 auto;
+	text-align: center;
+}
+
+.landscape img{
+	width: 95%;
+	border: 1px;
+	border-style: solid;
+}
+
+.potrait img{
+        width: 52.5%;
+        border: 1px;
+        border-style: solid;
+}
+
+.textwrap {
+	width: 95%;
+	font-size: 1.3em;
 }
 
 .sidebar {
 	width: 20%;
 	float:right;
+}
+
+.navarrow {
+	margin-top: -10px;
+}
+
+.container {
+	position: relative;
+}
+
+#navleft {
+	padding-left: 30px;
+}
+
+#navright {
+	padding-right: 30px;
+}
+
+.navarrow {
+	padding-top: 25%;
 }
