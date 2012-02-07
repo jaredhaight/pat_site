@@ -35,7 +35,7 @@
 
 body {
 	background: #FFFFFF;
-	font-family: "CallunaSansRegular", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-family: 'CallunaSansRegular', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-weight: 300;;
 	padding-bottom:30px;
 }
@@ -80,7 +80,6 @@ a:hover {
 
 .details {
 	background: #FEF6E4;
-	margin: .9% .8% 0;
 	border-radius: 3px;
 	box-shadow: 0 0px 2px 0 #888;
 }
@@ -108,12 +107,30 @@ a:hover {
 	z-index: 2;
 }
 
-.displayicons {
+.displayicons_portrait {
 	position:absolute;
 	z-index: 1;
 	padding: .25%;
 	top: 0;
-	right: 0;
+	right: 21.5%;
+	width: 20px;
+}
+
+.displayicons_portrait img {
+	margin-bottom: 5px;
+}
+
+.displayicons_landscape {
+        position:absolute;
+        z-index: 1;
+        padding: .25%;
+        top: 0;
+        right: 0%;
+        width: 20px;
+}
+
+.displayicons_landscape img {
+	margin-bottom: 5px;
 }
 
 .post {
@@ -139,6 +156,11 @@ a:hover {
 	margin: 1% auto;
 	padding-top: 20px;
 	padding-bottom: 20px;
+	padding-left: 1%;
+}
+
+.left{
+	float: left;
 }
 
 .right{
@@ -146,8 +168,15 @@ a:hover {
 	text-align: right;
 }
 
-.left{
+.navright{
+	float: right;
+	text-align: right;
+	margin-left: -6.1%;
+}
+
+.navleft{
 	float: left;
+	margin-right: 6.1%;
 }
 
 .tenpad{
@@ -217,11 +246,30 @@ a:hover {
 }
 
 .textwrap {
-	width: 95%;
+	max-width: 78%;
 	font-size: 1.3em;
 }
 
 .sidebar {
 	width: 20%;
 	float:right;
+}
+
+.dlandscape {
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
+.dpotrait {
+	margin-right: -6%;
+}
+
+.dpotrait img {
+	width: 60.5%;
+        border: 1px;
+        border-style: solid;
+}
+
+#frame {
+	position: relative;
 }

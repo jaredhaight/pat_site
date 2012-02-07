@@ -28,6 +28,20 @@ def home(request):
  
     return render_to_response("home.html", dict(photos=photos, user=request.user))
 
+def category(request,jcat):
+    photos = get_list_or_404(Photo.objects.filter(tags__icontains=jcat).order_by("-date_posted"))
+    paginator = Paginator(photos, 4)
+
+    try: page = int(request.GET.get("page", '1'))
+    except ValueError: page = 1
+
+    try:
+        photos = paginator.page(page)
+    except (InvalidPage, EmptyPage):
+        photos = paginator.page(paginator.num_pages)
+
+    return render_to_response("home.html", dict(photos=photos, user=request.user))
+
 def view(request, jslug):
     photo = get_object_or_404(Photo, title_slug=str(jslug))
     caption = photo.caption
@@ -41,7 +55,7 @@ def view(request, jslug):
     seed = Photo.objects.filter(id__lte=(photo.id)).order_by('-date_posted')[:15]
 
     if Photo.objects.filter(id__gt=photo.id).count() < 7:
-        count = (7 - Photo.objects.filter(id__gt=photo.id).count())
+        count = (14 - Photo.objects.filter(id__gt=photo.id).count())
     elif Photo.objects.filter(id__lt=photo.id).count() < 7:
         count = seed.count()-1 
     else:
@@ -73,7 +87,7 @@ def details(request, jslug):
     seed = Photo.objects.filter(id__lte=(photo.id)).order_by('-date_posted')[:15]
 
     if Photo.objects.filter(id__gt=photo.id).count() < 7:
-        count = (4 - Photo.objects.filter(id__gt=photo.id).count())
+        count = (14 - Photo.objects.filter(id__gt=photo.id).count())
     elif Photo.objects.filter(id__lt=photo.id).count() < 7:
         count = seed.count()-1
     else:

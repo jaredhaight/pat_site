@@ -1,14 +1,46 @@
 {% extends "base.html" %}
-{% block content %}
-        <div class="row">
-                {% if photo.orientation == 'landscape' %}
-                <div class="eightcol viewimg">
-                        <img src="{{ photo.get_landscape_url }}" alt="{{ photo.title }}"/></a>
-                {% else %}
-                <div class="fourcol viewimg det-potrait">
-                        <img src="{{ photo.get_600_url }}" alt="{{ photo.title }}"/></a>
-                {% endif %}
+{% block javascript %}
+<script type='text/javascript'>
+        $(document).ready(function(){
+        $("body").keydown(
+	    function(event){
+	        if (event.which == 74){
+			url = $('#navleft').attr('href');
+		}
+                if (event.which == 37){
+                        url = $('#navleft').attr('href');
+                }
+                if (event.which == 75){
+                        url = $('#navright').attr('href');
+                }
+                if (event.which == 39){
+                        url = $('#navright').attr('href');
+                }
+		if (url) {
+		window.location = url;
+		}
+        	});
+        });
+</script>
+{% endblock %}
+{% block header %}
+        <div class="row header tenpad">
+                <div class="sixcol headertitle left">
+                        <p><h1><a href="/">Photos and Text</a> | </h1>{{ photo.name }}</p>
                 </div>
+        </div>
+{% endblock %}
+{% block content %}
+         <div class="row">
+                {% if photo.orientation == 'landscape' %}
+                <div id="frame_{{ photo.title_slug }}" class="eightcol dlandscape">
+                        <p class="imagewrap dlandscape"><img src="{{ photo.get_landscape_url }}" alt="{{ photo.name }}"/></p>
+		</div>  
+                {% else %}
+                <div id="frame_{{ photo.title_slug }}" class="eightcol dpotrait">
+                        <p class="imagewrap dpotrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
+		</div>  
+                {% endif %}
                 <div class="fourcol last tenpad details">
                                         <table>
                                                 <tr><td><b>Taken: </b></td><td>
@@ -17,7 +49,7 @@
                                                 {% else %}
                                                  Not Available
                                                 {% endif %}</td></tr>
-                                        
+
                                                 <tr><td><b>Focal Length: </b></td><td>
                                                 {% if photo.exif_focal != "None" %}
                                                 {{ photo.exif_focal }}mm
@@ -52,19 +84,34 @@
                                                 {% else %}
                                                 None
                                                 {% endif %}</td></tr>
-					</table>
+                                        </table>
 
                                         <div class="tenpad right">
                                                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
-                                        </div>
+                                       </div>
                                 </div>
-        </div>
-        <div class="row tenpad">
-                <div class="viewbar">
-                        {{ photo.caption|linebreaksbr }}
+
+		</div>
+	<div class="row tenpad">
+                <div class="onecol navleft">
+                        {% if prevphoto %}
+                        <a id="navleft" title="Previous Photo: {{ prevphoto.name }}" href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
+                        {% if user.is_authenticated %}{{ prevphoto.id }}{% endif %}
+                        {% endif %}
                 </div>
-        </div>
+	        <div id="bar_{{ photo.title_slug }}" class="tencol textwrap">
+                        {{ photo.caption|linebreaksbr }}
+                        {% if user.is_authenticated %}{{ photo.id }}{% endif %}
+        	</div>
+                <div class="onecol last navright">
+                        {% if nextphoto %}
+                        <a id="navright" title="Next Photo: {{ nextphoto.name }}" href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
+                        {% if user.is_authenticated %}{{ nextphoto.id }}{% endif %}
+                        {% endif %}
+                </div>
+	</div>
 </div>
-{% include 'filmstrip.html' %}
+        {% include 'filmstrip.html' %}
 {% endblock %}
+
 

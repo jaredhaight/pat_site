@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r"^photo/(?P<jslug>[\-\d\w]+)/details", "main.views.details"),
     (r"^photo/(?P<jslug>[\-\d\w]+)/full", "main.views.full"),
     (r"^photo/(?P<jslug>[\-\d\w]+)/download", "main.views.download"),    
+    (r"^category/(?P<jcat>[\-\d\w]+)/$", "main.views.category"),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -7,6 +7,8 @@ from decimal import Decimal
 import os 
 from os.path import exists 
 import glob
+import boto
+import settings
 
 class PhotoSize(models.Model):
     SIZE_CHOICES =(
@@ -93,6 +95,7 @@ class Photo(models.Model):
             self.date_posted = datetime.datetime.today()
         super(Photo, self).save(*args, **kwargs)
 	self.create_sizes()
+        self.upload_to_s3()
 
     def delete(self):
         self.clear_photos()
@@ -121,3 +124,14 @@ class Photo(models.Model):
         return u'<img src="%s"/>'% (settings.MEDIA_URL+self.get_view_url)
     admin_thumbnail.short_description  = 'Thumbnail'
     admin_thumbnail.allow_tags = True
+
+    def upload_to_s3(self):
+        s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
+        bucket = s3.get_bucket('dl.photosandtext')
+        key = bucket.new_key(self.original_image.name)
+        key.set_metadata('Content-Type','application/octet-stream')
+        key.set_metadata('Content-Disposition','attachment')
+        key.set_metadata('X-PAT-NAME',self.name)
+        key.set_contents_from_file(self.original_image.file)
+        key.set_acl('public-read')
+
