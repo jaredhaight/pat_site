@@ -3,15 +3,6 @@
 /* ============================== */
 
 @font-face {
-    font-family: 'LatinModernRoman10Regular';
-    src: url('fonts/lmroman10-regular-webfont.eot');
-    src: url('fonts/lmroman10-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/lmroman10-regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'CallunaRegular';
     src: url('fonts/Calluna-Regular-webfont.eot');
     src: url('fonts/Calluna-Regular-webfont.eot?#iefix') format('embedded-opentype'),
@@ -75,7 +66,9 @@ a:hover {
 }
 
 .wrapper{
-	margin: 8% auto;
+	margin: 0 auto;
+	margin-top: 8%;
+	margin-bottom: -8%;
 }
 
 .details {
@@ -273,3 +266,15 @@ a:hover {
 #frame {
 	position: relative;
 }
+
+.notice {
+        background: #FEF6E4;
+        box-shadow:inset 0 0 6px #000000;
+        margin: 0 auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 1%;
+}
+

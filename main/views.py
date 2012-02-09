@@ -9,6 +9,7 @@ from django.forms import ModelForm
 from django.http import Http404
 from main.models import *
 from django.contrib.auth.models import User
+from datetime import date
 
 from itertools import chain
 import logging
@@ -26,7 +27,13 @@ def home(request):
     except (InvalidPage, EmptyPage):
         photos = paginator.page(paginator.num_pages)
  
-    return render_to_response("home.html", dict(photos=photos, user=request.user))
+    if "has_visited" in request.session:
+        first_time = 'no'
+    else:
+        first_time = 'yes'
+        request.session["has_visited"] = "Yes"
+
+    return render_to_response("home.html", dict(photos=photos, user=request.user, first_time=first_time))
 
 def category(request,jcat):
     photos = get_list_or_404(Photo.objects.filter(tags__icontains=jcat).order_by("-date_posted"))

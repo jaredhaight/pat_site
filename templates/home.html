@@ -8,6 +8,24 @@ $(document).ready(function(){
 		},function() {
 		$("a#HomePhoto").not(this).stop().fadeTo("slow",1.0);
 	});
+        $("body").keydown(
+                 function(event){
+                        if (event.which == 74){
+                                url = $('#navleft').attr('href');
+                        }
+                        if (event.which == 37){
+                                url = $('#navleft').attr('href');
+                        }
+                        if (event.which == 75){
+                                url = $('#navright').attr('href');
+                        }
+                        if (event.which == 39){
+                                url = $('#navright').attr('href');
+                        }
+                        if (url) {
+                                window.location = url;
+                        }
+                });
 });
 </script>
 {% endblock %}
@@ -29,12 +47,12 @@ $(document).ready(function(){
 	<div class="row homenav">
 		<div class="sixcol left">
                         {% if photos.has_previous %}
-                        <a href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
+                        <a id="navleft" href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
                         {% endif %}
                 </div>
 		<div class="sixcol right last">
 			{% if photos.has_next %}
-			<a href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
+			<a id="navright" href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
 			{% endif %}
 		</div>
 	</div>	
@@ -59,7 +77,15 @@ $(document).ready(function(){
 		</div>
 
 	</div>
-
-</div>
+       {% if first_time == 'yes' %}
+	<div class="row">
+		<div class="twelevecol notice">
+			<center>Hi! Welcome to Photos and Text. For any of the screens, you can use the <br>
+			left, right, 'j' or 'k' keys on your keyboard to navigate around. <br><br>
+			<italic>This message will only appear once</italic></center>
+		</div>
+	</div>
+	{% endif %}
+</div> 
 {% endblock %}
 
