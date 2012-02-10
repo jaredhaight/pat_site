@@ -27,6 +27,7 @@
 body {
 	background: #FFFFFF;
 	font-family: 'CallunaSansRegular', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 1.2em;
 	font-weight: 300;;
 	padding-bottom:30px;
 }
@@ -68,7 +69,6 @@ a:hover {
 .wrapper{
 	margin: 0 auto;
 	margin-top: 8%;
-	margin-bottom: -8%;
 }
 
 .details {
@@ -136,11 +136,10 @@ a:hover {
 
 .tag {
 	text-align: center;
-	margin: 20px 1.2% 0 1.8%;
 	font-family:'LatinModernRoman10Regular';
 	font-weight: normal;
 	font-size: 34px;
-
+	min-height: 42px;
 }
 
 .filmstrip{
@@ -198,19 +197,16 @@ a:hover {
 	box-shadow: 2px 5px 3px 1px#888;
 	padding: 30px;
 	border-radius: 10px;
+	margin: 10% 25%;
+	font-size: 1.2em;
 }
 
 .aboutbox a{
 	color: #0404B4;
 }
 
-.aboutrow{
-	height: 400px;
-	padding: 10% 30%;
-}
-
 .plist{
-	margin: .7% 1.4% 1% 1.4%;
+	margin: 1% 1% 1% 1.9%;
 	box-shadow: 5px 5px 10px #888;
 	border: 1px;
 	border-style: solid;
@@ -240,7 +236,14 @@ a:hover {
 
 .textwrap {
 	max-width: 78%;
+	min-height: 50px;
+	padding: 10px;
 	font-size: 1.3em;
+	background: #FFFDFB;
+	border-radius: 8px;
+	border: #FFFAF0;
+	border-width: 2px;
+	border-style: solid;
 }
 
 .sidebar {
@@ -276,5 +279,29 @@ a:hover {
         padding-top: 20px;
         padding-bottom: 20px;
         padding-left: 1%;
+}
+
+#tag_all{
+	margin: 20px 1.5% 0 0%
+}
+
+#tag_featured {
+	margin: 20px 0% 0 0%
+}
+
+#tag_landscapes {
+	margin: 20px 0% 0 7%
+}
+
+#tag_nature {
+	margin: 20px 0% 0 5%
+}
+
+#tag_misc {
+	margin: 20px 0% 0 2%
+}
+
+#tag_about {
+	margin: 20px 0% 0 1.4%
 }
 

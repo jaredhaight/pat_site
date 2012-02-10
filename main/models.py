@@ -128,10 +128,13 @@ class Photo(models.Model):
     def upload_to_s3(self):
         s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
         bucket = s3.get_bucket('dl.photosandtext')
-        key = bucket.new_key(self.original_image.name)
-        key.set_metadata('Content-Type','application/octet-stream')
-        key.set_metadata('Content-Disposition','attachment')
-        key.set_metadata('X-PAT-NAME',self.name)
-        key.set_contents_from_file(self.original_image.file)
-        key.set_acl('public-read')
+        if bucket.get_key(self.original_image.name):
+            print 'Already Exists'
+	else:
+            key = bucket.new_key(self.original_image.name)
+            key.set_metadata('Content-Type','application/octet-stream')
+            key.set_metadata('Content-Disposition','attachment')
+            key.set_metadata('X-PAT-NAME',self.name)
+            key.set_contents_from_file(self.original_image.file)
+            key.set_acl('public-read')
 

@@ -57,22 +57,22 @@ $(document).ready(function(){
 		</div>
 	</div>	
 	<div class="row">
-		<div class="twocol tag">
+		<div id="tag_all" class="twocol tag">
 		<a href="/">All</a>
 		</div>
-		<div class="twocol tag">
+		<div id="tag_featured" class="twocol tag">
                 <a href="/category/featured">Featured</a>
                 </div>
-                <div class="twocol tag">
+                <div id="tag_landscapes" class="twocol tag">
 		<a href="/category/landscapes">Landscapes</a>
 		</div>
-		<div class="twocol tag">
+		<div id="tag_nature" class="twocol tag">
 		<a href="/category/nature">Nature</a>
 		</div>
-		<div class="twocol tag">
+		<div id="tag_misc" class="twocol tag">
 		<a href="/category/misc">Misc.</a>
 		</div>
-		<div class="twocol last tag">
+		<div id="tag_about" class="twocol last tag">
 		<a href="/about">About</a>
 		</div>
 
@@ -80,9 +80,8 @@ $(document).ready(function(){
        {% if first_time == 'yes' %}
 	<div class="row">
 		<div class="twelevecol notice">
-			<center>Hi! Welcome to Photos and Text. For any of the screens, you can use the <br>
-			left, right, 'j' or 'k' keys on your keyboard to navigate around. <br><br>
-			<italic>This message will only appear once</italic></center>
+			<center>Hi! Welcome to Photos and Text. In addition to the arrow links on the sides of any given<br>
+			page, you can use the left, right, 'j' or 'k' keys on your keyboard to navigate around.</center>
 		</div>
 	</div>
 	{% endif %}

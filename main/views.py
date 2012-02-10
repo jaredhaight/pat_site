@@ -112,17 +112,5 @@ def details(request, jslug):
 
     return render_to_response("details.html", d)
 
-def full(request, jslug):
-    photo = get_object_or_404(Photo, title_slug=str(jslug))
-    d = dict(photo=photo)
-
-    return render_to_response("full.html", d)
-
 def about(request):
     return render_to_response("about.html")
-
-def download(request, jslug):
-    photo = get_object_or_404(Photo, title_slug=str(jslug))
-    response = photo.original_image.url
-    
-    return response
