@@ -8,10 +8,10 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         self.stdout.write('Removing items from Photo Cache.')
-        for each in glob.glob(settings.MEDIA_ROOT+'thumb/*.jpg'):
-            os.unlink(each)
-        for each in glob.glob(settings.MEDIA_ROOT+'display/*.jpg'):
-            os.unlink(each)
+        for photo in Photo.objects.all():
+            print ('Removing thumbnails for %s' % photo.name)
+            photo.clear_photos()
+
 
         self.stdout.write('\nRe-creating Photo Cache.\n')
         for photo in Photo.objects.all():

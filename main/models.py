@@ -50,6 +50,10 @@ class Photo(models.Model):
     def create_sizes(self):
 	for size in self.sizes:
             fname = (settings.MEDIA_ROOT + size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
+            s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
+            bucket = s3.get_bucket('files.photosandtext')
+            key = bucket.new_key(size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
+
             t_img = Image.open(self.original_image.path)
  
             if size.width == 0:
@@ -65,9 +69,14 @@ class Photo(models.Model):
             if size.type == 'thumb':
                 t_fit = ImageOps.fit(t_img, (height,width), Image.ANTIALIAS, 0, (0.5,0.5))
                 t_fit.save(fname,"JPEG")
+                key.set_contents_from_file(open(fname))
+                key.set_acl('public-read')
+
             elif size.type == 'display':
                 t_img.thumbnail((width,height), Image.ANTIALIAS)
                 t_img.save(fname, 'JPEG', quality=90)
+                key.set_contents_from_file(open(fname))
+                key.set_acl('public-read')
  
     def get_orientation(self):
         width = self.original_image.width
@@ -103,7 +112,7 @@ class Photo(models.Model):
 
     def get_sizes(self):
         for size in self.sizes:
-            setattr(self, ('get_'+size.name.lower()+'_url'), ('/'+ size.type + '/'+ self.rootfilename +'_'+size.name.lower()+'.jpg'))
+            setattr(self, ('get_'+size.name.lower()+'_url'), (settings.MEDIA_URL + size.type + '/'+ self.rootfilename +'_'+size.name.lower()+'.jpg'))
 
     def exif(self):
         ret = {}
@@ -115,10 +124,16 @@ class Photo(models.Model):
         return ret    
     
     def clear_photos(self):
+        s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
+        bucket = s3.get_bucket('files.photosandtext')
+        for size in self.sizes:
+            bucket.delete_key(size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
         for item in glob.glob(settings.MEDIA_ROOT+'thumb/'+self.rootfilename+'*.jpg'):
             os.unlink(item)
         for item in glob.glob(settings.MEDIA_ROOT+'display/'+self.rootfilename+'*.jpg'):
             os.unlink(item)
+        bucket.delete_key(self.original_image.name)
+        
 
     def admin_thumbnail(self):
         return u'<img src="%s"/>'% (settings.MEDIA_URL+self.get_view_url)
