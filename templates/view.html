@@ -4,7 +4,7 @@
         $(document).ready(function(){
 	        $('img#PhotoDetails').tipsy({gravity: 'w'});
 	        $('img#Download').tipsy({gravity: 'w'});
-	        $("body").keydown(
+	        $(document.documentElement).keydown(
 			function(event){
 			        if (event.which == 74){
 					url = $('#navleft').attr('href');
@@ -36,7 +36,7 @@
          <div class="row">
 	        <div id="frame" class="twelvecol">
                         {% if photo.orientation == 'landscape' %}
-                        <p class="imagewrap landscape"><img src="{{ photo.get_landscape_url }}" alt="{{ photo.name }}"/></p>
+                        <p class="imagewrap landscape"><img src="{{ photo.get_1140_url }}" alt="{{ photo.name }}"/></p>
                         {% else %}
                         <p class="imagewrap potrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
                         {% endif %}

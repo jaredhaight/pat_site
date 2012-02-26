@@ -10,7 +10,7 @@ $(document).ready(function(){
 	<div class="onecol"></div>
                 {% for photo in row1 %}
                 <div class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
+                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
                         {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}
@@ -20,7 +20,7 @@ $(document).ready(function(){
         <div class="onecol"></div>
                 {% for photo in row2 %}
                 <div class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
+                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
                         {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}
@@ -30,7 +30,7 @@ $(document).ready(function(){
         <div class="onecol"></div>
                 {% for photo in row3 %}
                 <div class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_view_url }}" alt="{{ photo.title }}"></a>
+                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
                         {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}

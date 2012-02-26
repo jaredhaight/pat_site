@@ -7,12 +7,13 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.forms import ModelForm
 from django.http import Http404
-from main.models import *
 from django.contrib.auth.models import User
 from datetime import date
-
 from itertools import chain
 import logging
+
+from main.models import *
+
 
 def home(request):
     """Home Page"""
@@ -114,3 +115,4 @@ def details(request, jslug):
 
 def about(request):
     return render_to_response("about.html")
+

@@ -22,6 +22,11 @@ class PhotoSize(models.Model):
     def __unicode__(self):
         return self.name
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+    def __unicode__(self):
+        return self.name
+
 class Photo(models.Model):
     name = models.CharField(max_length=100)
     date_posted = models.DateField(blank=True)
@@ -36,7 +41,7 @@ class Photo(models.Model):
     exif_focal = models.CharField(max_length=10, editable=False, null=True, blank=True)
     exif_date_taken = models.CharField(max_length=50, editable=False, null=True, blank=True)
     orientation = models.CharField(max_length=20, editable=False, null=True, blank=True)
-    tags = models.CharField(max_length=50)
+    tags = models.ManyToManyField(Tag)
 
     def __unicode__(self):
         return self.name
@@ -52,7 +57,7 @@ class Photo(models.Model):
             fname = (settings.MEDIA_ROOT + size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
             s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
             bucket = s3.get_bucket('files.photosandtext')
-            key = bucket.new_key(size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
+            keyname = (size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
 
             t_img = Image.open(self.original_image.path)
  
@@ -69,12 +74,22 @@ class Photo(models.Model):
             if size.type == 'thumb':
                 t_fit = ImageOps.fit(t_img, (height,width), Image.ANTIALIAS, 0, (0.5,0.5))
                 t_fit.save(fname,"JPEG")
+
+                if bucket.get_key(keyname):
+                    bucket.delete_key(keyname)
+                    
+                key = bucket.new_key(keyname)
                 key.set_contents_from_file(open(fname))
                 key.set_acl('public-read')
 
             elif size.type == 'display':
                 t_img.thumbnail((width,height), Image.ANTIALIAS)
                 t_img.save(fname, 'JPEG', quality=90)
+
+                if bucket.get_key(keyname):
+                    bucket.delete_key(keyname)
+
+                key = bucket.new_key(keyname)
                 key.set_contents_from_file(open(fname))
                 key.set_acl('public-read')
  
@@ -89,12 +104,21 @@ class Photo(models.Model):
             return 'portrait'
 
     def save(self, *args, **kwargs):
+        #Get the root file name, this will be used for thumbnails, ec2, etc.
         self.rootfilename = (self.original_image.name).strip('photos/.jpg')
+
+        #Save the file we uploaded, for the rest of this we'll need a physical file to work with
         super(Photo, self).save(*args, **kwargs)
+
+	#Dump exif info
         self.exif_iso = self.exif().get('ISOSpeedRatings')
         fnfirst,fnsec = self.exif().get('FNumber')
         self.exif_aperture = Decimal(fnfirst)/Decimal(fnsec)
-        self.exif_shutter = '%s/%s'% (self.exif().get('ExposureTime'))
+        exif_a,exif_b = self.exif().get('ExposureTime')
+        if exif_b == 1:
+            self.exif_shutter = '%s seconds'% (exif_a)
+        else:
+            self.exif_shutter = '%s/%s'% (exif_a,exif_b)
         ash,bsh = self.exif().get('FocalLength')
         self.exif_focal = ash/bsh
         date,time = (self.exif().get('DateTimeOriginal')).split()
@@ -102,6 +126,8 @@ class Photo(models.Model):
         self.orientation = self.get_orientation()
         if self.date_posted == None:
             self.date_posted = datetime.datetime.today()
+
+        #Save everything to DB, create thumbnails and upload everything to S3
         super(Photo, self).save(*args, **kwargs)
 	self.create_sizes()
         self.upload_to_s3()
@@ -136,20 +162,24 @@ class Photo(models.Model):
         
 
     def admin_thumbnail(self):
-        return u'<img src="%s"/>'% (settings.MEDIA_URL+self.get_view_url)
+        return u'<img src="%s"/>'% (self.get_view_url)
     admin_thumbnail.short_description  = 'Thumbnail'
     admin_thumbnail.allow_tags = True
 
     def upload_to_s3(self):
         s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
         bucket = s3.get_bucket('dl.photosandtext')
-        if bucket.get_key(self.original_image.name):
-            print 'Already Exists'
-	else:
-            key = bucket.new_key(self.original_image.name)
-            key.set_metadata('Content-Type','application/octet-stream')
-            key.set_metadata('Content-Disposition','attachment')
-            key.set_metadata('X-PAT-NAME',self.name)
-            key.set_contents_from_file(self.original_image.file)
-            key.set_acl('public-read')
+	keyname = self.original_image.name
 
+        if bucket.get_key(keyname):
+            bucket.delete_key(keyname)
+        
+        key = bucket.new_key(keyname)
+        key.set_metadata('Content-Type','application/octet-stream')
+        key.set_metadata('Content-Disposition','attachment')
+        key.set_metadata('X-PAT-NAME',self.name)
+        key.set_contents_from_file(open(self.original_image.path))
+        key.set_acl('public-read')
+
+    def get_absolute_url(self):
+        return 'http://ec2.photosandtext.com/photo/'+self.title_slug

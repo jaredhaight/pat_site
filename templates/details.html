@@ -89,7 +89,13 @@
                                         <div class="tenpad right">
                                                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
                                        </div>
-                                </div>
+	                        <div class="displayicons_{{ photo.orientation }} fright">
+        	                        <a href="http://download.photosandtext.com/{{ photo.original_image.name }}"><img id="Download" title="Download a high resolution copy of this Photo" src="/static/images/dl.png"/></a>
+                	                <a href="/photo/{{ photo.title_slug }}/details"><img id="PhotoDetails" title="View Photo Details" src="/static/images/details-3.png"/></a>
+				</div>
+			</div>
+                        </div>
+
 
 		</div>
 	<div class="row tenpad">

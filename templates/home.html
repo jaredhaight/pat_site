@@ -45,12 +45,12 @@ $(document).ready(function(){
 		{% endfor %}
 	</div>
 	<div class="row homenav">
-		<div class="sixcol left">
+		<div class="sixcol navleft">
                         {% if photos.has_previous %}
                         <a id="navleft" href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
                         {% endif %}
                 </div>
-		<div class="sixcol right last">
+		<div class="sixcol navright last">
 			{% if photos.has_next %}
 			<a id="navright" href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
 			{% endif %}
