@@ -162,7 +162,7 @@ class Photo(models.Model):
         
 
     def admin_thumbnail(self):
-        return u'<img src="%s"/>'% (self.get_view_url)
+        return u'<img src="%s"/>'% (self.get_filmstrip_url)
     admin_thumbnail.short_description  = 'Thumbnail'
     admin_thumbnail.allow_tags = True
 

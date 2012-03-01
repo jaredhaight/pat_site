@@ -1,7 +1,9 @@
 {% block filmstrip %}
 <script type='text/javascript'>
 $(document).ready(function(){
-        $("#{{ photo.id }}").fadeTo(0,0.5);
+        $("#{{ photo.id }}").fadeTo(0,0.62);
+	$("#{{ photo.id }}").css('background','black');
+
 });
 </script>
 
@@ -9,8 +11,8 @@ $(document).ready(function(){
 	<div class="row">
 	<div class="onecol"></div>
                 {% for photo in row1 %}
-                <div class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
+                <div id="{{ photo.id }}" class="twocol plist">
+                        <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
                         {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}

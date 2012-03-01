@@ -1,4 +1,5 @@
 from django.contrib.syndication.views import Feed
+from django.utils.html import linebreaks
 from main.models import Photo
 
 class pat_feed(Feed):
@@ -13,5 +14,5 @@ class pat_feed(Feed):
         return item.name
 
     def item_description(self, item):
-        return '<img src='+item.get_home_url+'><p>'+item.caption
+        return '<img src='+item.get_home_url+'><p>'+linebreaks(item.caption)
 

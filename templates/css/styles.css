@@ -304,6 +304,9 @@ a:hover {
 		height: 60px;
 		margin-top: 3%;
 	}
+	.notice {
+		display: none;
+	}
 
 	.post {
 		border-style: none;
