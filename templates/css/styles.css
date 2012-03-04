@@ -109,7 +109,7 @@ a:hover {
 	margin-bottom: 5px;
 }
 
-.post {
+.homebox {
 	color: white;
 	background: black;
 	margin: 0 1.5% 2% 1.6%;
@@ -119,12 +119,20 @@ a:hover {
 	box-shadow: 5px 5px 10px #888;
 }
 
+.homeboxwrap {
+	padding-left: 1.15%;
+}
+
 .tag {
 	text-align: center;
 	font-family:'LatinModernRoman10Regular';
 	font-weight: normal;
 	font-size: 34px;
 	min-height: 42px;
+}
+
+.tagwrap {
+	padding-left: .8%;
 }
 
 .filmstrip{

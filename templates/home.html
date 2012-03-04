@@ -36,9 +36,9 @@ $(document).ready(function(){
 
 <!-- Photos!  -->
 <div class="wrapper">
-	<div class="row">
+	<div class="row homeboxwrap">
 		{% for photo in photos.object_list %}
-		<div class="jthreecol post">
+		<div class="jthreecol homebox">
 			<a id="HomePhoto" href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_home_url }}" alt="{{ photo.title }}"/></a> 
 		</div>
 		{% endfor %}
@@ -55,7 +55,7 @@ $(document).ready(function(){
 			{% endif %}
 		</div>
 	</div>	
-	<div class="row">
+	<div class="row tagwrap">
 		<div id="tag_all" class="twocol tag">
 		<a href="/">All</a>
 		</div>
