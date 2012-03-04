@@ -37,7 +37,7 @@ def home(request):
     return render_to_response("home.html", dict(photos=photos, user=request.user, first_time=first_time))
 
 def category(request,jcat):
-    photos = get_list_or_404(Photo.objects.filter(tags__icontains=jcat).order_by("-date_posted"))
+    photos = get_list_or_404(Photo.objects.filter(tags__name=jcat).order_by("-date_posted"))
     paginator = Paginator(photos, 4)
 
     try: page = int(request.GET.get("page", '1'))

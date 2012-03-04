@@ -40,7 +40,6 @@ $(document).ready(function(){
 		{% for photo in photos.object_list %}
 		<div class="jthreecol post">
 			<a id="HomePhoto" href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_home_url }}" alt="{{ photo.title }}"/></a> 
-		{% if user.is_authenticated %}{{ photo.id }} | {{ photo.date_posted }}{% endif %}
 		</div>
 		{% endfor %}
 	</div>

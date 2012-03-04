@@ -13,7 +13,6 @@ $(document).ready(function(){
                 {% for photo in row1 %}
                 <div id="{{ photo.id }}" class="twocol plist">
                         <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
-                        {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}
         <div class="onecol"></div>
@@ -23,7 +22,6 @@ $(document).ready(function(){
                 {% for photo in row2 %}
                 <div class="twocol plist">
                         <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
-                        {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}
         <div class="onecol"></div>
@@ -33,7 +31,6 @@ $(document).ready(function(){
                 {% for photo in row3 %}
                 <div class="twocol plist">
                         <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
-                        {% if user.is_authenticated %} {{ photo.id }} {% endif %}
                 </div>
                 {% endfor %}
         <div class="onecol filler"></div>

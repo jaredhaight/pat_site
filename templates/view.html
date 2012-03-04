@@ -50,19 +50,16 @@
                 <div class="onecol navleft">
                         {% if prevphoto %}
                         <a id="navleft" title="Previous Photo: {{ prevphoto.name }}" href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
-                        {% if user.is_authenticated %}{{ prevphoto.id }}{% endif %}
                         {% endif %}
                 </div>
 		{% if photo.caption %}
 	        <div id="bar_{{ photo.title_slug }}" class="tencol textwrap">
                         {{ photo.caption|linebreaksbr }}
-                        {% if user.is_authenticated %}{{ photo.id }}{% endif %}
         	</div>
 		{% endif %}
                 <div class="onecol last navright">
                         {% if nextphoto %}
                         <a id="navright" title="Next Photo: {{ nextphoto.name }}" href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
-                        {% if user.is_authenticated %}{{ nextphoto.id }}{% endif %}
                         {% endif %}
                 </div>
 	</div>

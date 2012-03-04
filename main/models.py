@@ -73,7 +73,7 @@ class Photo(models.Model):
 
             if size.type == 'thumb':
                 t_fit = ImageOps.fit(t_img, (height,width), Image.ANTIALIAS, 0, (0.5,0.5))
-                t_fit.save(fname,"JPEG")
+                t_fit.save(fname,"JPEG", quality=95)
 
                 if bucket.get_key(keyname):
                     bucket.delete_key(keyname)
@@ -84,7 +84,7 @@ class Photo(models.Model):
 
             elif size.type == 'display':
                 t_img.thumbnail((width,height), Image.ANTIALIAS)
-                t_img.save(fname, 'JPEG', quality=90)
+                t_img.save(fname, 'JPEG', quality=95)
 
                 if bucket.get_key(keyname):
                     bucket.delete_key(keyname)
@@ -111,19 +111,36 @@ class Photo(models.Model):
         super(Photo, self).save(*args, **kwargs)
 
 	#Dump exif info
-        self.exif_iso = self.exif().get('ISOSpeedRatings')
-        fnfirst,fnsec = self.exif().get('FNumber')
-        self.exif_aperture = Decimal(fnfirst)/Decimal(fnsec)
-        exif_a,exif_b = self.exif().get('ExposureTime')
-        if exif_b == 1:
-            self.exif_shutter = '%s seconds'% (exif_a)
-        else:
-            self.exif_shutter = '%s/%s'% (exif_a,exif_b)
-        ash,bsh = self.exif().get('FocalLength')
-        self.exif_focal = ash/bsh
-        date,time = (self.exif().get('DateTimeOriginal')).split()
-        self.exif_date_taken = date.replace(':','/')+' at '+ time
+        try:
+            self.exif_iso = self.exif().get('ISOSpeedRatings')
+        except:
+            self.exif_iso = 'None'            
+        try:
+            fnfirst,fnsec = self.exif().get('FNumber')
+            self.exif_aperture = Decimal(fnfirst)/Decimal(fnsec)
+        except:
+            self.exif_aperture = 'None'            
+        try:   
+            exif_a,exif_b = self.exif().get('ExposureTime')
+            if exif_b == 1:
+                self.exif_shutter = '%s seconds'% (exif_a)
+            else:
+                self.exif_shutter = '%s/%s'% (exif_a,exif_b)
+        except:
+            self.exif_shutter = 'None'
+        try:
+            ash,bsh = self.exif().get('FocalLength')
+            self.exif_focal = ash/bsh
+        except:
+            self.exif_focal = 'None'
+        try:    
+            date,time = (self.exif().get('DateTimeOriginal')).split()
+            self.exif_date_taken = date.replace(':','/')+' at '+ time
+        except:
+            self.exif_date_taken = 'None'
+
         self.orientation = self.get_orientation()
+        
         if self.date_posted == None:
             self.date_posted = datetime.datetime.today()
 

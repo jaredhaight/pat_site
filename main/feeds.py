@@ -4,7 +4,7 @@ from main.models import Photo
 
 class pat_feed(Feed):
     title = "Photos and Text"
-    link = "/"
+    link = "http://photosandtext.com"
     description = "Words and pictures from Photos and Text"
 
     def items(self):

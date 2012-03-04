@@ -61,7 +61,7 @@ a:hover {
 }
 
 .homenav {
-	height: 26px;
+	height: 32px;
 }
 
 .viewimg {
@@ -112,7 +112,7 @@ a:hover {
 .post {
 	color: white;
 	background: black;
-	margin: 0 1.5% 3% 1.6%;
+	margin: 0 1.5% 2% 1.6%;
 	border: 3px;
 	border-style: solid;
 	border-color: black;
