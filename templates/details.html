@@ -28,20 +28,24 @@
                 <div class="sixcol headertitle left">
                         <p><h1><a href="/">Photos and Text</a> | </h1>{{ photo.name }}</p>
                 </div>
+        	<div class="photolinks">
+                	<a href="http://download.photosandtext.com/{{ photo.original_image.name }}" title="Download a high resolution copy of this image">Download</a> |
+                	<a href="/photo/{{ photo.title_slug }}/details" title="View photo details">Details</a>
+        	</div>
         </div>
 {% endblock %}
 {% block content %}
          <div class="row">
                 {% if photo.orientation == 'landscape' %}
-                <div id="frame_{{ photo.title_slug }}" class="eightcol dlandscape">
-                        <p class="imagewrap dlandscape"><img src="{{ photo.get_landscape_url }}" alt="{{ photo.name }}"/></p>
+                <div id="frame_{{ photo.title_slug }}" class="sevencol dlandscape">
+                        <p class="imagewrap dlandscape"><img src="{{ photo.get_1140_url }}" alt="{{ photo.name }}"/></p>
 		</div>  
                 {% else %}
-                <div id="frame_{{ photo.title_slug }}" class="eightcol dpotrait">
+                <div id="frame_{{ photo.title_slug }}" class="sevencol dpotrait">
                         <p class="imagewrap dpotrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
 		</div>  
                 {% endif %}
-                <div class="fourcol last tenpad details">
+                <div class="fivecol last tenpad details">
                                         <table>
                                                 <tr><td><b>Taken: </b></td><td>
                                                 {% if photo.exif_date_taken != "None"%}
@@ -79,8 +83,8 @@
                                                 {% endif %}</td></tr>
 
                                                 <tr><td><b>Tagged:</b></td><td>
-                                                {% if photo.tags != "None" %}
-                                                {{ photo.tags }}
+                                                {% if tags != "None" %}
+                                                {{ tags }}
                                                 {% else %}
                                                 None
                                                 {% endif %}</td></tr>
@@ -89,11 +93,7 @@
                                         <div class="tenpad right">
                                                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
                                        </div>
-	                        <div class="displayicons_{{ photo.orientation }} fright">
-        	                        <a href="http://download.photosandtext.com/{{ photo.original_image.name }}"><img id="Download" title="Download a high resolution copy of this Photo" src="/static/images/dl.png"/></a>
-                	                <a href="/photo/{{ photo.title_slug }}/details"><img id="PhotoDetails" title="View Photo Details" src="/static/images/details-3.png"/></a>
 				</div>
-			</div>
                         </div>
 
 

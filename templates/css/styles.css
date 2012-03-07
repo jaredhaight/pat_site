@@ -58,6 +58,7 @@ a:hover {
 
 .details td{
 	padding-right: 1%;
+	min-width: 145px;
 }
 
 .homenav {
@@ -232,11 +233,17 @@ a:hover {
 	min-height: 50px;
 	padding: 10px;
 	font-size: 1.17em;
+	line-height: 1.25em;
 	background: #E6FEEB;
 	border-radius: 8px;
 	border: #FEF7E6;
 	border-width: 2px;
 	border-style: solid;
+}
+
+.photolinks {
+	text-align: center;
+	font-size: .5em;
 }
 
 .sidebar {
@@ -380,11 +387,7 @@ a:hover {
 		margin: 10px
 	}
 
-	.displayicons_portrait{
-		display: none;
-	}
-
-	.displayicons_landscape{
+	.photolinks {	
 		display: none;
 	}
 	

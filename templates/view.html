@@ -2,8 +2,8 @@
 {% block javascript %}
 <script type='text/javascript'>
         $(document).ready(function(){
-	        $('img#PhotoDetails').tipsy({gravity: 'w'});
-	        $('img#Download').tipsy({gravity: 'w'});
+	        $('img#PhotoDetails').tipsy({gravity: 'n'});
+	        $('img#Download').tipsy({gravity: 's'});
 	        $(document.documentElement).keydown(
 			function(event){
 			        if (event.which == 74){
@@ -28,8 +28,8 @@
 {% block header %}
         <div class="row header tenpad">
                 <div class="sixcol headertitle left">
-                        <p><h1><a href="/">Photos and Text</a> | </h1>{{ photo.name }}</p>
-                </div>
+                        <h1><a href="/">Photos and Text</a> | </h1>{{ photo.name }}
+		</div>
         </div>
 {% endblock %}
 {% block content %}
@@ -40,10 +40,6 @@
                         {% else %}
                         <p class="imagewrap potrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
                         {% endif %}
-	                <div class="displayicons_{{ photo.orientation }} fright">
-				<a href="http://download.photosandtext.com/{{ photo.original_image.name }}"><img id="Download" title="Download a high resolution copy of this Photo" src="/static/images/dl.png"/></a>
-	                        <a href="/photo/{{ photo.title_slug }}/details"><img id="PhotoDetails" title="View Photo Details" src="/static/images/details-3.png"/></a>
-			</div>
                 </div>
 	</div>
 	<div class="row tenpad">
@@ -55,7 +51,7 @@
 		{% if photo.caption %}
 	        <div id="bar_{{ photo.title_slug }}" class="tencol textwrap">
                         {{ photo.caption|linebreaksbr }}
-        	</div>
+		</div>
 		{% endif %}
                 <div class="onecol last navright">
                         {% if nextphoto %}
@@ -63,6 +59,14 @@
                         {% endif %}
                 </div>
 	</div>
+	<div class="row">
+                <div class="photolinks">
+	                <a href="http://download.photosandtext.com/{{ photo.original_image.name }}" title="Download a high resolution copy of this image">You can download a high resolution version of this photo here</a> or
+                        <a href="/photo/{{ photo.title_slug }}/details" title="View photo details">view photo details here</a>
+                </div>
+	</div>
+
+
 </div>
         {% include 'filmstrip.html' %}
 {% endblock %}

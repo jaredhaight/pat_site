@@ -109,7 +109,17 @@ def details(request, jslug):
     row2 = plist[5:10]
     row3 = plist[10:15]
 
-    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, row1=row1, row2=row2, row3=row3, caption=caption, user=request.user)
+    tagsobj  = photo.tags.all()
+    tags = ''
+    count = tagsobj.count()
+    while count > 0:
+        for tag in tagsobj:
+            tags = tags + tag.name
+            if count > 1:
+                tags = tags + ', '
+            count = count - 1
+
+    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, row1=row1, row2=row2, row3=row3, caption=caption, user=request.user, tags=tags)
 
     return render_to_response("details.html", d)
 
