@@ -77,38 +77,6 @@ def view(request, jslug):
     row2 = plist[5:10]
     row3 = plist[10:15]
 
-    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, row1=row1, row2=row2, row3=row3, caption=caption, user=request.user)
-
-
-    return render_to_response("view.html", d)
-
-def details(request, jslug):
-    photo = get_object_or_404(Photo, title_slug=str(jslug))
-    caption = photo.caption
-
-    try: prevphoto = photo.get_next_by_date_posted()
-    except photo.DoesNotExist: prevphoto = None
-
-    try: nextphoto = photo.get_previous_by_date_posted()
-    except photo.DoesNotExist: nextphoto = None
-
-    seed = Photo.objects.filter(id__lte=(photo.id)).order_by('-date_posted')[:15]
-
-    if Photo.objects.filter(id__gt=photo.id).count() < 7:
-        count = (14 - Photo.objects.filter(id__gt=photo.id).count())
-    elif Photo.objects.filter(id__lt=photo.id).count() < 7:
-        count = seed.count()-1
-    else:
-        count = 7
-
-    pstrip = Photo.objects.filter(id__gte=(seed[count].id))[:15]
-    plist = list(pstrip)
-    plist.reverse()
-
-    row1 = plist[0:5]
-    row2 = plist[5:10]
-    row3 = plist[10:15]
-
     tagsobj  = photo.tags.all()
     tags = ''
     count = tagsobj.count()
@@ -121,7 +89,8 @@ def details(request, jslug):
 
     d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, row1=row1, row2=row2, row3=row3, caption=caption, user=request.user, tags=tags)
 
-    return render_to_response("details.html", d)
+
+    return render_to_response("view.html", d)
 
 def about(request):
     return render_to_response("about.html")

@@ -4,6 +4,13 @@
         $(document).ready(function(){
 	        $('img#PhotoDetails').tipsy({gravity: 'n'});
 	        $('img#Download').tipsy({gravity: 's'});
+		$('a#DetailsLink').toggle(function(){
+				$('div#Details').slideDown();
+				$(this).html('Hide Photo Details');
+			}, function() {
+				$('div#Details').slideUp();
+				$(this).html('View Photo Details');
+			});
 	        $(document.documentElement).keydown(
 			function(event){
 			        if (event.which == 74){
@@ -61,13 +68,62 @@
 	</div>
 	<div class="row">
                 <div class="photolinks">
-	                <a href="http://download.photosandtext.com/{{ photo.original_image.name }}" title="Download a high resolution copy of this image">You can download a high resolution version of this photo here</a> or
-                        <a href="/photo/{{ photo.title_slug }}/details" title="View photo details">view photo details here</a>
+	                <a href="http://download.photosandtext.com/{{ photo.original_image.name }}">Download this Photo</a> | 
+                        <a id="DetailsLink">View Photo Details</a>
                 </div>
 	</div>
+	<div id="Details" class="row detailswrap">
+               <div class="twelvecol">
+		<div class="tenpad details">
+                        <table>
+  	                      <tr><td class="title"><b>Taken: </b></td><td>
+                              {% if photo.exif_date_taken != "None"%}
+        	              {{ photo.exif_date_taken }}
+                              {% else %}
+                              Not Available
+                              {% endif %}</td></tr>
 
+                              <tr><td class="title"><b>Focal Length: </b></td><td>
+                              {% if photo.exif_focal != "None" %}
+                              {{ photo.exif_focal }}mm
+                              {% else %}
+                              Not Available
+                              {% endif %}</td></tr>
 
-</div>
+                              <tr><td class="title"><b>Shutter Speed:</b></td><td>
+                              {% if photo.exif_shutter != "None" %}
+                              {{ photo.exif_shutter }}
+                              {% else %}
+                              Not Available
+                              {% endif %}</td></tr>
+
+                              <tr><td class="title"><b>ISO: </b></td><td>
+                              {% if photo.exif_iso != "None" %}
+                              {{ photo.exif_iso }}
+                              {% else %}
+                              Not Available
+                              {% endif %}</td></tr>
+
+                              <tr><td class="title"><b>Aperture:</b></td><td>
+                              {% if photo.exif_aperture != "None" %}
+                              f/{{ photo.exif_aperture }}
+                              {% else %}
+                              Not Available
+                              {% endif %}</td></tr>
+
+                              <tr><td class="title"><b>Tagged:</b></td><td>
+                              {% if tags != "None" %}
+                              {{ tags }}
+                              {% else %}
+                              None
+                              {% endif %}</td></tr>
+			</table>
+                        <div class="right">
+                        	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
+                        </div>
+		</div>
+	</div>
+	</div>
         {% include 'filmstrip.html' %}
 {% endblock %}
 
