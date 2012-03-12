@@ -2,8 +2,6 @@
 {% block javascript %}
 <script type='text/javascript'>
         $(document).ready(function(){
-	        $('img#PhotoDetails').tipsy({gravity: 'n'});
-	        $('img#Download').tipsy({gravity: 's'});
 		$('a#DetailsLink').toggle(function(){
 				$('div#Details').slideDown();
 				$(this).html('Hide Photo Details');
@@ -43,7 +41,7 @@
          <div class="row">
 	        <div id="frame" class="twelvecol">
                         {% if photo.orientation == 'landscape' %}
-                        <p class="imagewrap landscape"><img src="{{ photo.get_1140_url }}" alt="{{ photo.name }}"/></p>
+                        <p class="imagewrap landscape"><img src="{{ photo.get_view_url }}" alt="{{ photo.name }}"/></p>
                         {% else %}
                         <p class="imagewrap potrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
                         {% endif %}

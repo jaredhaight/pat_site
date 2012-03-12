@@ -54,7 +54,7 @@ a:hover {
 }
 
 .details {
-	background: #FEF6E4;
+	background: #E6FEEB;
 	width: 410px;
 	height: 165px;
 	border-radius: 3px;
@@ -230,13 +230,11 @@ a:hover {
 }
 
 .landscape img{
-	width: 95%;
 	border: 1px;
 	border-style: solid;
 }
 
 .potrait img{
-        width: 52.5%;
         border: 1px;
         border-style: solid;
 }
