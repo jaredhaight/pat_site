@@ -14,5 +14,5 @@ class pat_feed(Feed):
         return item.name
 
     def item_description(self, item):
-        return '<img src='+item.get_home_url+'><p>'+linebreaks(item.caption)
+        return '<img src='+item.get_home_url+'><p>'+linebreaks(item.caption)+'</p><p>You can view this photo (and download a higher resolution version of it) <a href="%s">here</a>.' % item.get_absolute_url()
 

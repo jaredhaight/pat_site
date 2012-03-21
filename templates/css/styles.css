@@ -59,7 +59,7 @@ a:hover {
 	height: 165px;
 	border-radius: 3px;
 	box-shadow: 0 0px 2px 0 #888;
-	margin: 2% auto;
+	margin: 1% auto;
 }
 
 .details table{
@@ -182,6 +182,10 @@ a:hover {
 	padding: 10px;
 }
 
+.tenup{
+	padding-top: 10px;
+}
+
 .grey{
 	background: #eee;
 }
@@ -254,6 +258,7 @@ a:hover {
 .photolinks {
 	text-align: center;
 	font-size: .5em;
+	padding-top: 1%;
 }
 
 .sidebar {

@@ -11,8 +11,8 @@ $(document).ready(function(){
 	<div class="row">
 	<div class="onecol"></div>
                 {% for photo in row1 %}
-                <div id="{{ photo.id }}" class="twocol plist">
-                        <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
+                <div class="twocol plist">
+                        <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
                 </div>
                 {% endfor %}
         <div class="onecol"></div>
