@@ -204,12 +204,14 @@ a:hover {
 }
 
 .aboutbox{
-	background: #E5FFE5;
-	box-shadow: 2px 5px 3px 1px#888;
+	background: #E6FEEB;
+	box-shadow: 5px 10px 20px #888;
 	padding: 30px;
 	border-radius: 10px;
 	margin: 10% 25%;
 	font-size: 1.2em;
+	border-style: solid;
+	border-width: 1px;
 }
 
 .aboutbox a{
@@ -246,13 +248,12 @@ a:hover {
 .textwrap {
 	max-width: 78%;
 	padding: 10px;
+	margin-bottom: 5px;
 	font-size: 1.17em;
 	line-height: 1.25em;
 	background: #E6FEEB;
 	border-radius: 8px;
-	border: #FEF7E6;
-	border-width: 2px;
-	border-style: solid;
+	box-shadow: 1px 1px 7px -1px #000000;
 }
 
 .photolinks {
@@ -415,6 +416,7 @@ a:hover {
 		position: absolute;
 		bottom: 0;
 		left: 0;
+		margin-left: -5px !important;
 	}
 
 	.navright {
@@ -424,12 +426,17 @@ a:hover {
 		position: absolute;
 		bottom: 0;
 		right: 0;
+		margin-right: -5px !important;
 	}
 	
 	.textwrap {
-		margin-left: 5% !important;
-		margin: 10px;
-		margin-bottom: 13%;
+		margin-left: 5.3% !important;
+		margin: 5px;
+		margin-bottom: 15%;
+		box-shadow: none;
+		border-style: solid;
+		border-width: 1px;
+
 	}
 
 	.photolinks {	
