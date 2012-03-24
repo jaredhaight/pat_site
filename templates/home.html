@@ -1,4 +1,20 @@
 {% extends "base.html" %}
+
+{% block meta %}
+<meta name="og:url" content=
+<meta name="title" content="Photos and Text" />
+<meta property="og:site_name" content="Photos and Text" />
+<meta property="og:title" content="Photos and Text" />
+<meta name="description" content="A collection of Photos from around North Carolina" />
+<meta name="og:description" content="A collection of Photos from around North Carolina" />
+<meta property="og:type" content="website" />
+
+{% for photo in photos.object_list %}
+<link rel="image_src" href="{{ photo.get_social_url }}" />
+<meta property="og:image" content="{{ photo.get_social_url }}" />
+{% endfor %}
+{% endblock %}
+
 {% block javascript %}
 <script type='text/javascript'>
 $(document).ready(function(){

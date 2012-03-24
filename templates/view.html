@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block title %}<title> {{ photo.name }} - Photos and Text </title>{% endblock %}
+
+{% block meta %}
+<meta name="title" content="{{ photo.name }}" />
+<meta name="description" content="{{ photo.caption }}" />
+<link rel="image_src" href=" {{ photo.get_social_url }}"/>
+<meta property="og:title" content="{{ photo.name }}" />
+<meta property="og:image" content="{{ photo.get_social_url }}" />
+{% endblock %}
+
 {% block javascript %}
 <script type='text/javascript'>
         $(document).ready(function(){

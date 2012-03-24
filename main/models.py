@@ -199,4 +199,4 @@ class Photo(models.Model):
         key.set_acl('public-read')
 
     def get_absolute_url(self):
-        return 'http://ec2.photosandtext.com/photo/'+self.title_slug
+        return 'http://photosandtext.com/photo/'+self.title_slug
