@@ -430,9 +430,8 @@ a:hover {
 	}
 	
 	.textwrap {
-		margin-left: 5.3% !important;
-		margin: 5px;
-		margin-bottom: 15%;
+		margin: 0 auto !important;
+		margin-bottom: 45px !important;
 		box-shadow: none;
 		border-style: solid;
 		border-width: 1px;
