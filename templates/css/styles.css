@@ -186,6 +186,10 @@ a:hover {
 	padding-top: 10px;
 }
 
+.fifteenup{
+	padding-top: 15px;
+}
+
 .grey{
 	background: #eee;
 }
@@ -252,7 +256,6 @@ a:hover {
 	font-size: 1.17em;
 	line-height: 1.25em;
 	background: #E6FEEB;
-	border-radius: 8px;
 	box-shadow: 1px 1px 7px -1px #000000;
 }
 
@@ -457,3 +460,8 @@ a:hover {
 		border: 1px;
 		border-style: solid;		
 	}
+
+// These woods are lovely, dark and deep,
+// But I have promises to keep,
+// And miles to go before I sleep,
+// And miles to go before I sleep.. 

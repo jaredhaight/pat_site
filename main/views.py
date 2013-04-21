@@ -94,4 +94,3 @@ def view(request, jslug):
 
 def about(request):
     return render_to_response("about.html")
-
