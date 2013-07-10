@@ -18,7 +18,7 @@ from main.models import *
 def home(request):
     """Home Page"""
     photos = get_list_or_404(Photo.objects.all().order_by("-date_posted"))
-    paginator = Paginator(photos, 4)
+    paginator = Paginator(photos, 15)
 
     try: page = int(request.GET.get("page", '1'))
     except ValueError: page = 1

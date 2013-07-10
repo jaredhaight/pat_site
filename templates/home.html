@@ -51,46 +51,41 @@ $(document).ready(function(){
 {% block content %}
 
 <!-- Photos!  -->
-<div class="wrapper">
-	<div class="row homeboxwrap">
-		{% for photo in photos.object_list %}
-		<div class="jthreecol homebox">
-			<a id="HomePhoto" href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_home_url }}" alt="{{ photo.title }}"/></a> 
-		</div>
-		{% endfor %}
-	</div>
-	<div class="row homenav">
-		<div class="sixcol navleft">
+<div class="pure-g-r">
+  <div id="wordWrap">
+    <div class="pure-u-1-2 headerText">
+      Photos and Text
+    </div>
+    <div class="pure-u-1-2 headerLinks">
+    <a href="/">All</a>
+      <a href="/category/featured">Featured</a>
+      <a href="/category/landscapes">Landscapes</a>
+      <a href="/category/nature">Nature</a>
+      <a href="/category/misc">Misc.</a>
+      <a href="http://words.photosandtext.com"">Words</a>
+    </div>
+  </div>
+</div>
+<div id="filmstrip">
+  <div class="pure-g-r">
+    {% for photo in photos.object_list %}
+    <div class="pure-u-1-5">
+      <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_home_url }}" alt="{{ photo.title }}"/></a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+	<div class="pure-g-r homenav">
+		<div class="pure-u-1-2 navleft">
                         {% if photos.has_previous %}
                         <a id="navleft" href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
                         {% endif %}
                 </div>
-		<div class="sixcol navright last">
+		<div class="pure-u-1-2 navright last">
 			{% if photos.has_next %}
 			<a id="navright" href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
 			{% endif %}
 		</div>
-	</div>	
-	<div class="row tagwrap">
-		<div id="tag_all" class="twocol tag">
-		<a href="/">All</a>
-		</div>
-		<div id="tag_featured" class="twocol tag">
-                <a href="/category/featured">Featured</a>
-                </div>
-                <div id="tag_landscapes" class="twocol tag">
-		<a href="/category/landscapes">Landscapes</a>
-		</div>
-		<div id="tag_nature" class="twocol tag">
-		<a href="/category/nature">Nature</a>
-		</div>
-		<div id="tag_misc" class="twocol tag">
-		<a href="/category/misc">Misc.</a>
-		</div>
-		<div id="tag_about" class="twocol last tag">
-		<a href="http://words.photosandtext.com"">Words</a>
-		</div>
-
 	</div>
        {% if first_time == 'yes' %}
 	<div class="row">
