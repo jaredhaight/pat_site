@@ -9,6 +9,7 @@ from os.path import exists
 import glob
 import boto
 import settings
+import datetime
 
 class PhotoSize(models.Model):
     SIZE_CHOICES =(
@@ -53,7 +54,7 @@ class Photo(models.Model):
     sizes = PhotoSize.objects.all()        
 
     def create_sizes(self):
-	for size in self.sizes:
+        for size in self.sizes:
             fname = (settings.MEDIA_ROOT + size.type.lower() + '/' + self.rootfilename + '_' + size.name.lower() + '.jpg')
             s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
             bucket = s3.get_bucket('files.photosandtext')
@@ -73,7 +74,7 @@ class Photo(models.Model):
 
             if size.type == 'thumb':
                 t_fit = ImageOps.fit(t_img, (height,width), Image.ANTIALIAS, 0, (0.5,0.5))
-                t_fit.save(fname,"JPEG", quality=95)
+                t_fit.save(fname,"JPEG", quality=90)
 
                 if bucket.get_key(keyname):
                     bucket.delete_key(keyname)
@@ -84,7 +85,7 @@ class Photo(models.Model):
 
             elif size.type == 'display':
                 t_img.thumbnail((width,height), Image.ANTIALIAS)
-                t_img.save(fname, 'JPEG', quality=95)
+                t_img.save(fname, 'JPEG', quality=90)
 
                 if bucket.get_key(keyname):
                     bucket.delete_key(keyname)
@@ -110,7 +111,7 @@ class Photo(models.Model):
         #Save the file we uploaded, for the rest of this we'll need a physical file to work with
         super(Photo, self).save(*args, **kwargs)
 
-	#Dump exif info
+    #Dump exif info
         try:
             self.exif_iso = self.exif().get('ISOSpeedRatings')
         except:
@@ -146,7 +147,7 @@ class Photo(models.Model):
 
         #Save everything to DB, create thumbnails and upload everything to S3
         super(Photo, self).save(*args, **kwargs)
-	self.create_sizes()
+        self.create_sizes()
         self.upload_to_s3()
 
     def delete(self):
@@ -186,7 +187,7 @@ class Photo(models.Model):
     def upload_to_s3(self):
         s3 = boto.connect_s3(settings.dl_aws_access_key_id, settings.dl_aws_secret_access_key)
         bucket = s3.get_bucket('dl.photosandtext')
-	keyname = self.original_image.name
+        keyname = self.original_image.name
 
         if bucket.get_key(keyname):
             bucket.delete_key(keyname)
