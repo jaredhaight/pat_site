@@ -1,0 +1,310 @@
+/*###################
+
+Common
+
+###################*/
+
+body {
+    max-width: 1600px;
+    font-family: "Lato","Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/*###################
+
+Header
+
+###################*/
+
+#wordWrap {
+    background: #fff;
+    border-bottom: #ccc;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    height: 50px;
+}
+
+.headerText {
+    margin-top: 3px;
+    display: inline;
+    float: left;
+}
+
+.headerText h1 {
+    font-size: 2em;
+    margin: 0;
+    padding-left: 5px;
+    padding-top: 2px;
+    color: #000;
+}
+
+.headerLinks {
+    display: inline;
+    float: right;
+    text-align: right;
+    width: 70%;
+}
+
+.headerLinks a {
+    display: inline-block;
+    font-size: 1.3em;
+    font-weight: 300;
+    padding-left: 2%;
+    padding-right: 2%;
+    position: relative;
+    height: 38px;
+    padding-top: 13px;
+    color: #333;
+}
+
+.headerLinks a:hover {
+    background: #98CAFF;
+    color: #000;
+}
+
+#mobileMenu {
+    display: none;
+}
+
+#mobileMenu img {
+    max-width: 55px;
+}
+
+body .sidr {
+    font-family: inherit;
+    font-size: inherit;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+/*###################
+
+View Page CSS
+
+###################*/
+
+#photo {
+    overflow: hidden;
+}
+
+.imageWrap {
+	margin: 0 auto;
+	text-align: center;
+    background: #000;
+}
+
+#backdrop {
+    max-width: 1280px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 20%;
+    left: 0;
+    background: #000;
+    z-index: -1;
+}
+
+.photoInfo {
+    padding: 10px;
+    color: #525252;
+}
+
+.photoInfo h2 {
+    color: #000;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.photoInfo .desc {
+    border-bottom: #ccc;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-bottom: 15px;
+}
+
+.photoButton {
+    margin-bottom: 10px;
+}
+
+.primary {
+    background-color: #7F97FF;
+    color: #fff;
+}
+
+#navRow {
+    height: 50px;
+}
+
+/*###################
+
+Filmstrip used on Homepage and View Page
+
+###################*/
+
+#filmstrip {
+    padding: 15px;
+    background: #000;
+}
+
+#filmstrip img {
+    width: 96%;
+    max-width: 300px;
+    padding: 2%;
+}
+
+/*###################
+
+Navigation
+
+###################*/
+#navBarWrap {
+    background: #fff;
+    margin-top: 10px;
+    position: relative;
+}
+
+#navBar {
+    height: 45px;
+    width: 98%;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#navBar a {
+    font-weight: 100;
+    font-size: 16pt;
+    color: #525252
+}
+
+#navBar img {
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+#navLeft {
+    float: left;
+}
+
+#navLeft span{
+    text-align: left;
+    display: inline-block;
+    float: left;
+    width: 80%;
+}
+
+#navLeft img {
+    float: left;
+    text-align: left;
+}
+
+#navRight {
+    float: right;
+    text-align: right;
+}
+
+#navRight span {
+    text-align: right;
+    display: inline-block;
+    width: 80%;
+}
+
+#navRight img {
+    float: right;
+    text-align: right;
+}
+
+.photoNav {
+    width: 100%;
+}
+/*###################
+
+Mobile
+
+###################*/
+@media (max-width: 1024px) {
+    #backdrop {
+        display: none;
+    }
+
+    #photo {
+        width: 100%;
+    }
+
+    #info {
+        width: 100%;
+    }
+
+    #navBar {
+        height: 150px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .headerLinks {
+        display: none;
+    }
+
+    #mobileMenu {
+        display: inline-block;
+        float: right;
+        padding-top: 5px;
+    }
+}
+@media (max-width: 767px) {
+    #filmstrip .pure-u-1-5 {
+        width: 33.3333%;
+    }
+}
+@media (max-width: 690px) {
+    #navBar .pure-u-1-3 {
+        width: 100%;
+    }
+
+    #navBar a {
+        display: block;
+        float: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .imageWrap {
+        width: 135%;
+        margin-left: -18%;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 490px) {
+    #filmstrip .pure-g-r .pure-u-1-5 {
+        width: 50%;
+    }
+
+    #navBarWrap #navBar {
+        height: 175px;
+    }
+
+    #navBarWrap .pure-u-2-5 {
+        width: 50%;
+    }
+
+    #navBarWrap .pure-u-1-5 {
+        width: 0;
+    }
+
+    #navHome {
+        position: absolute;
+        bottom: 0;
+    }
+}
