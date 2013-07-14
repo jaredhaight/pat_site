@@ -9,7 +9,67 @@
 <meta property="og:image" content="{{ photo.get_social_url }}" />
 {% endblock %}
 
+{% block header %}{% endblock %}
+{% block content %}
+<div class="pure-g-r">
+  <div id="photo" class="pure-u-4-5">
+    <div id="backdrop"></div>
+    {% if photo.orientation == 'landscape' %}
+    <div class="imageWrap landscape">
+      <figure class="responsive"
+          data-media="{{ photo.get_600_url }}"
+          data-media600="{{ photo.get_1085_url }}"
+          data-media1085="{{ photo.get_1280_url }}"
+        >
+        <noscript>
+          <img src="{{ photo.get_600_url }}">
+        </noscript>
+      </figure>
+    </div>
+    {% else %}
+    <p class="imageWrap potrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
+    {% endif %}
+  </div>
+  <div id="info" class="pure-u-1-5">
+    <div class="photoInfo">
+      <h2>{{ photo.name }}</h2>
+      <p class="desc">{{ photo.caption }}</p>
+      <p>Taken on {{ photo.exif_date_taken }}</p>
+      <p>Focal Length: {{ photo.exif_focal }}mm</p>
+      <p>Shutter Speed: {{ photo.exif_shutter }}</p>
+      <p>ISO: {{ photo.exif_iso }}</p>
+      <p>Aperture: f/{{ photo.exif_aperture }}</p>
+      <p class="desc">This photo is tagged {{ tags }}</p>
+      <a class="pure-button photoButton primary" href="http://download.photosandtext.com/{{ photo.original_image.name }}">Download this Photo</a>
+    </div>
+  </div>
+</div>
+<div id="navBarWrap" class="pure-g-r">
+  <div id="navBar">
+    <div class="pure-u-2-5">
+      {% if prevphoto %}
+        <a id="navLeft" class="photoNav" title="Previous Photo: {{ prevphoto.name }}" href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/><span>{{ prevphoto.name }}</span></a>
+      {% endif %}
+    </div>
+    <div class="pure-u-1-5">
+        <a id="navHome" href="/">Home</a>
+    </div>
+    <div class="pure-u-2-5">
+      {% if nextphoto %}
+        <a id="navRight" class="photoNav" title="Next Photo: {{ nextphoto.name }}" href="/photo/{{ nextphoto.title_slug }}"><span>{{ nextphoto.name }}</span><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% include 'filmstrip.html' %}
+{% endblock %}
 {% block javascript %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $('figure.responsive').picture();
+});
+</script>
+
 <script type='text/javascript'>
         $(document).ready(function(){
 		$('a#DetailsLink').toggle(function(){
@@ -19,120 +79,27 @@
 				$('div#Details').slideUp();
 				$(this).html('View Photo Details');
 			});
-	        $(document.documentElement).keydown(
+    $(document.documentElement).keydown(
 			function(event){
-			        if (event.which == 74){
-					url = $('#navleft').attr('href');
-				}
-		                if (event.which == 37){
-		                        url = $('#navleft').attr('href');
-		                }
-		                if (event.which == 75){
-		                        url = $('#navright').attr('href');
-		                }
-		                if (event.which == 39){
-		                        url = $('#navright').attr('href');
-		                }
-				if (url) {
-				window.location = url;
-				}
-	       	});
+        if (event.which == 74){
+          url = $('#navleft').attr('href');
+        }
+        if (event.which == 37){
+          url = $('#navLeft').attr('href');
+        }
+        if (event.which == 75){
+          url = $('#navRight').attr('href');
+        }
+        if (event.which == 39){
+          url = $('#navRight').attr('href');
+        }
+        if (url) {
+          window.location = url;
+        }
+    });
 	});
+
 </script>
+
 {% endblock %}
-{% block header %}
-        <div class="row header tenpad">
-                <div class="sixcol headertitle left">
-                        <h1><a href="/">Photos and Text</a> | </h1>{{ photo.name }}
-		</div>
-        </div>
-{% endblock %}
-{% block content %}
-         <div class="row">
-	        <div id="frame" class="twelvecol">
-                        {% if photo.orientation == 'landscape' %}
-                        <p class="imagewrap landscape"><img src="{{ photo.get_view_url }}" alt="{{ photo.name }}"/></p>
-                        {% else %}
-                        <p class="imagewrap potrait"><img src="{{ photo.get_600_url }}" alt="{{ photo.name }}"/></p>
-                        {% endif %}
-                </div>
-	</div>
-	<div class="row fifteenup">
-                <div class="onecol navleft">
-                        {% if prevphoto %}
-                        <a id="navleft" title="Previous Photo: {{ prevphoto.name }}" href="/photo/{{ prevphoto.title_slug }}"><img src="/static/images/arrow-left.png" alt="{{ prevphoto.name }}"/></a>
-                        {% endif %}
-                </div>
-		{% if photo.caption %}
-	        <div id="bar_{{ photo.title_slug }}" class="tencol textwrap">
-                        {{ photo.caption|linebreaksbr }}
-		</div>
-		{% endif %}
-                <div class="onecol last navright">
-                        {% if nextphoto %}
-                        <a id="navright" title="Next Photo: {{ nextphoto.name }}" href="/photo/{{ nextphoto.title_slug }}"><img src="/static/images/arrow-right.png" alt="{{ nextphoto.name }}"/></a>
-                        {% endif %}
-                </div>
-	</div>
-	<div class="row">
-                <div class="photolinks">
-	                <a href="http://download.photosandtext.com/{{ photo.original_image.name }}">Download this Photo</a> | 
-                        <a id="DetailsLink">View Photo Details</a>
-                </div>
-	</div>
-	<div id="Details" class="row detailswrap">
-               <div class="twelvecol">
-		<div class="tenpad details">
-                        <table>
-  	                      <tr><td class="title"><b>Taken: </b></td><td>
-                              {% if photo.exif_date_taken != "None"%}
-        	              {{ photo.exif_date_taken }}
-                              {% else %}
-                              Not Available
-                              {% endif %}</td></tr>
-
-                              <tr><td class="title"><b>Focal Length: </b></td><td>
-                              {% if photo.exif_focal != "None" %}
-                              {{ photo.exif_focal }}mm
-                              {% else %}
-                              Not Available
-                              {% endif %}</td></tr>
-
-                              <tr><td class="title"><b>Shutter Speed:</b></td><td>
-                              {% if photo.exif_shutter != "None" %}
-                              {{ photo.exif_shutter }}
-                              {% else %}
-                              Not Available
-                              {% endif %}</td></tr>
-
-                              <tr><td class="title"><b>ISO: </b></td><td>
-                              {% if photo.exif_iso != "None" %}
-                              {{ photo.exif_iso }}
-                              {% else %}
-                              Not Available
-                              {% endif %}</td></tr>
-
-                              <tr><td class="title"><b>Aperture:</b></td><td>
-                              {% if photo.exif_aperture != "None" %}
-                              f/{{ photo.exif_aperture }}
-                              {% else %}
-                              Not Available
-                              {% endif %}</td></tr>
-
-                              <tr><td class="title"><b>Tagged:</b></td><td>
-                              {% if tags != "None" %}
-                              {{ tags }}
-                              {% else %}
-                              None
-                              {% endif %}</td></tr>
-			</table>
-                        <div class="right">
-                        	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
-                        </div>
-		</div>
-	</div>
-	</div>
-        {% include 'filmstrip.html' %}
-{% endblock %}
-
 
