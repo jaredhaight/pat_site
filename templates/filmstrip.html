@@ -1,32 +1,31 @@
 {% block filmstrip %}
-<script type='text/javascript'>
-$(document).ready(function(){
-        $("#{{ photo.id }}").fadeTo(0,0.62);
-
-});
-</script>
 <div id="filmstrip">
   <div class="pure-g-r">
-    {% for photo in row1 %}
+    {% for photo in filmstrip %}
     <div class="pure-u-1-5">
-            <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
-    </div>
-    {% endfor %}
-  </div>
-  <div class="pure-g-r">
-    {% for photo in row2 %}
-    <div class="pure-u-1-5">
-            <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
-    </div>
-    {% endfor %}
-  </div>
-  <div class="pure-g-r">
-    {% for photo in row3 %}
-    <div class="pure-u-1-5">
-            <a href="/photo/{{ photo.title_slug }}"><img id = "{{ photo.id }}" src="{{ photo.get_filmstrip_url }}" alt="{{ photo.title }}"></a>
+      <figure class="responsive"
+        data-media="{{ photo.get_thumb_200_url }}"
+        data-media600="{{ photo.get_thumb_250_url }}"
+        data-media767="{{ photo.get_thumb_200_url }}"
+        data-media1000="{{ photo.get_thumb_250_url }}"
+        data-media1240="{{ photo.get_thumb_325_url }}"
+      >
+        <a href="/photo/{{ photo.title_slug }}">
+          <noscript>
+            <img src="{{ photo.get_thumb_200_url }}">
+          </noscript>
+        </a>
+    </figure>
     </div>
     {% endfor %}
   </div>
 </div>
 {% endblock %}
 
+{% block javascript %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $('figure.responsive').picture();
+});
+</script>
+{% endblock %}

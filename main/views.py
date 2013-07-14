@@ -1,17 +1,6 @@
 # Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.template import Context, loader
-from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.forms import ModelForm
-from django.http import Http404
-from django.contrib.auth.models import User
-from datetime import date
-from itertools import chain
-import logging
-
 from main.models import *
 
 
@@ -27,6 +16,8 @@ def home(request):
         photos = paginator.page(page)
     except (InvalidPage, EmptyPage):
         photos = paginator.page(paginator.num_pages)
+
+    filmstrip = photos.object_list
  
     if "has_visited" in request.session:
         first_time = 'no'
@@ -34,11 +25,11 @@ def home(request):
         first_time = 'yes'
         request.session["has_visited"] = "Yes"
 
-    return render_to_response("home.html", dict(photos=photos, user=request.user, first_time=first_time))
+    return render_to_response("home.html", dict(photos=photos, filmstrip=filmstrip, user=request.user, first_time=first_time))
 
 def category(request,jcat):
     photos = get_list_or_404(Photo.objects.filter(tags__name=jcat).order_by("-date_posted"))
-    paginator = Paginator(photos, 4)
+    paginator = Paginator(photos, 15)
 
     try: page = int(request.GET.get("page", '1'))
     except ValueError: page = 1
@@ -48,7 +39,9 @@ def category(request,jcat):
     except (InvalidPage, EmptyPage):
         photos = paginator.page(paginator.num_pages)
 
-    return render_to_response("home.html", dict(photos=photos, user=request.user))
+    filmstrip = photos.object_list
+
+    return render_to_response("home.html", dict(photos=photos, flimstrip=filmstrip, user=request.user))
 
 def view(request, jslug):
     photo = get_object_or_404(Photo, title_slug=str(jslug))
@@ -70,12 +63,8 @@ def view(request, jslug):
         count = 7
 
     pstrip = Photo.objects.filter(id__gte=(seed[count].id))[:15]
-    plist = list(pstrip)
-    plist.reverse()
-
-    row1 = plist[0:5]
-    row2 = plist[5:10]
-    row3 = plist[10:15]
+    filmstrip = list(pstrip)
+    filmstrip.reverse()
 
     tagsobj  = photo.tags.all()
     tags = ''
@@ -87,7 +76,7 @@ def view(request, jslug):
                 tags = tags + ', '
             count = count - 1
 
-    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, row1=row1, row2=row2, row3=row3, caption=caption, user=request.user, tags=tags)
+    d = dict(photo=photo, nextphoto=nextphoto, prevphoto=prevphoto, filmstrip=filmstrip, caption=caption, user=request.user, tags=tags)
 
 
     return render_to_response("view.html", d)

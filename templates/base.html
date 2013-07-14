@@ -2,41 +2,54 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <head>
         <meta charset="utf-8" />
-        {% block title %}<title>Photos and Text</title>{% endblock %}
-
+  {% block title %}<title>Photos and Text</title>{% endblock %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/PhotosAndText" />
+	      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/PhotosAndText" />
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
-        <!-- 1140px Grid styles for IE -->
-	<!-- [if lte IE 9]><link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" /><![endif]-->
-
-        <!-- The 1140px Grid - http://cssgrid.net/ -->
-
-        <!-- Your styles -->
         <link rel="stylesheet" href="/static/css/styles.css" type="text/css" media="screen" />
-        <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
-        <script type="text/javascript" src="/static/js/css3-mediaqueries.js"></script>
-        <!--Delete embedded styles, just for example.-->
-	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<style type="text/css">
-        </style>
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/js/jquery-picture-min.js"></script>
 	{% block meta %}{% endblock %}
 
 </head>
 <body>
 {% block header %}
-	<div class="pure-g-r">
-       		<div class="pure-u-1">
-                	<div class="header">
-                        	<h1><a href="/">Photos and Text</h1></a>
-                	</div>
-	        </div>
-	</div>
+<div class="pure-g-r">
+  <div id="wordWrap" class="pure-u-1">
+    <div class="headerText">
+      <a href="/"><h1>Photos and Text</h1></a>
+    </div>
+    <div class="headerLinks">
+      <a href="/">All</a>
+      <a href="/category/featured">Featured</a>
+      <a href="/category/landscapes">Landscapes</a>
+      <a href="/category/nature">Nature</a>
+      <a href="/category/misc">Misc.</a>
+      <a href="http://words.photosandtext.com"">Words</a>
+    </div>
+    <div id="mobileMenu">
+      <a id="responsive-menu-button" href="#sidr-main"><img src="/static/images/menuIcon.png"></a>
+    </div>
+    <div id="navigation" class="sidr">
+      <nav class="nav">
+        <ul>
+          <li><a href="/">All</a></li>
+          <li><a href="/category/featured">Featured</a></li>
+          <li><a href="/category/landscapes">Landscapes</a></li>
+          <li><a href="/category/nature">Nature</a></li>
+          <li><a href="/category/misc">Misc.</a></li>
+          <li><a href="http://words.photosandtext.com"">Words</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block content %}{% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+
+{% endblock %}
 
 </body>
-</html>

@@ -13,80 +13,25 @@
 <link rel="image_src" href="{{ photo.get_social_url }}" />
 <meta property="og:image" content="{{ photo.get_social_url }}" />
 {% endfor %}
-{% endblock %}
 
-{% block javascript %}
-<script type='text/javascript'>
-$(document).ready(function(){
-	$("a#HomePhoto").hover(function(){
-                $(this).fadeTo("fast",1.0);
-		$("a#HomePhoto").not(this).stop().fadeTo("fast",0.8); 
-		},function() {
-		$("a#HomePhoto").not(this).stop().fadeTo("slow",1.0);
-	});
-        $("body").keydown(
-                 function(event){
-                        if (event.which == 74){
-                                url = $('#navleft').attr('href');
-                        }
-                        if (event.which == 37){
-                                url = $('#navleft').attr('href');
-                        }
-                        if (event.which == 75){
-                                url = $('#navright').attr('href');
-                        }
-                        if (event.which == 39){
-                                url = $('#navright').attr('href');
-                        }
-                        if (url) {
-                                window.location = url;
-                        }
-                });
-});
-</script>
+<script src="/static/js/jquery.sidr.min.js"></script>
+<link rel="stylesheet" href="/static/css/jquery.sidr.dark.css">
 {% endblock %}
-
-{% block header %}{% endblock %}
 
 {% block content %}
-
-<!-- Photos!  -->
-<div class="pure-g-r">
-  <div id="wordWrap">
-    <div class="pure-u-1-2 headerText">
-      Photos and Text
-    </div>
-    <div class="pure-u-1-2 headerLinks">
-    <a href="/">All</a>
-      <a href="/category/featured">Featured</a>
-      <a href="/category/landscapes">Landscapes</a>
-      <a href="/category/nature">Nature</a>
-      <a href="/category/misc">Misc.</a>
-      <a href="http://words.photosandtext.com"">Words</a>
-    </div>
+{% include 'filmstrip.html' %}
+<div id="navBarWrap" class="pure-g-r">
+  <div class="pure-u-1">
+    <div id="navBar">
+      {% if photos.has_previous %}
+        <a id="navLeft" href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
+      {% endif %}
+      {% if photos.has_next %}
+        <a id="navRight" href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
+      {% endif %}
+      </div>
   </div>
 </div>
-<div id="filmstrip">
-  <div class="pure-g-r">
-    {% for photo in photos.object_list %}
-    <div class="pure-u-1-5">
-      <a href="/photo/{{ photo.title_slug }}"><img src="{{ photo.get_home_url }}" alt="{{ photo.title }}"/></a>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-	<div class="pure-g-r homenav">
-		<div class="pure-u-1-2 navleft">
-                        {% if photos.has_previous %}
-                        <a id="navleft" href= "?page={{ photos.previous_page_number }}"><img src="/static/images/arrow-left.png"></a>
-                        {% endif %}
-                </div>
-		<div class="pure-u-1-2 navright last">
-			{% if photos.has_next %}
-			<a id="navright" href="?page={{ photos.next_page_number }}"><img src="/static/images/arrow-right.png"></a>
-			{% endif %}
-		</div>
-	</div>
        {% if first_time == 'yes' %}
 	<div class="row">
 		<div class="twelevecol notice">
@@ -98,3 +43,42 @@ $(document).ready(function(){
 </div> 
 {% endblock %}
 
+
+{% block javascript %}
+<script type='text/javascript'>
+$(document).ready(function(){
+	$("a#HomePhoto").hover(function(){
+                $(this).fadeTo("fast",1.0);
+		$("a#HomePhoto").not(this).stop().fadeTo("fast",0.8);
+		},function() {
+		$("a#HomePhoto").not(this).stop().fadeTo("slow",1.0);
+	});
+        $("body").keydown(
+                 function(event){
+                        if (event.which == 74){
+                                url = $('#navLeft').attr('href');
+                        }
+                        if (event.which == 37){
+                                url = $('#navLeft').attr('href');
+                        }
+                        if (event.which == 75){
+                                url = $('#navRight').attr('href');
+                        }
+                        if (event.which == 39){
+                                url = $('#navRight').attr('href');
+                        }
+                        if (url) {
+                                window.location = url;
+                        }
+                });
+});
+</script>
+
+<script>
+  $('#responsive-menu-button').sidr({
+    name: 'sidr-main',
+    source: '#navigation',
+    side: 'right'
+  });
+</script>
+{% endblock %}
